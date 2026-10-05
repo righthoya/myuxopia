@@ -13,57 +13,43 @@ useSeoMeta({ title: 'UX Guide', description: '프로덕트 디자이너를 위�
 const rows = computed(() => allPages
   .filter(p => (tab.value === '전체' || p.parent === tab.value) && p.title.includes(q.value.trim()))
   .map(p => ({ ...p, doc: docs.value?.find(d => d.path === p.to) })))
-// UX 정책의 목적과 방향 (피그마 'UX 표준 정책_v1.0' A 블록). 방향 설명 문장은 초안
-const purposes = ['이용자 중심', '업무 효율과 만족도', '법 준수 (접근성 · 개인정보)', '설계 · 개발 일관성']
-const directions = [
-  { title: '직관성 · 명확성', text: '처음 쓰는 사람도 설명 없이 다음 행동을 알 수 있게 설계합니다.' },
-  { title: '포용적 UX', text: '고령자와 디지털 약자도 같은 기능을 불편 없이 쓸 수 있게 합니다.' },
-  { title: '워크플로우 기반 설계', text: '화면 하나가 아니라 실제 업무 흐름 순서로 설계합니다.' },
-  { title: 'UI 시스템 일관성 · 확장성', text: '같은 상황에는 같은 패턴과 문구를 쓰고, 새 기능도 같은 규칙으로 늘려 갑니다.' }
-]
-// 히어로 배지: 가장 최근에 수정된 문서
-const latest = computed(() => [...(docs.value ?? [])].sort((a, b) => String(b.meta.updated).localeCompare(String(a.meta.updated)))[0])
-const cur = ref(0)
-const go = (i: number) => { cur.value = (i + directions.length) % directions.length }
+const { copied, copyLink } = useCopyLink()
+// 버전 수정 이력 팝업 (브라우저 기본 dialog: ESC로 닫힘, 닫히면 포커스 복귀)
+const versionDialog = ref<HTMLDialogElement>()
+const versions = computed(() => [...(docs.value ?? [])].sort((a, b) => String(b.meta.updated).localeCompare(String(a.meta.updated))))
 </script>
 
 <template>
-  <!-- 히어로: tasteskill.dev 구조 (배지 → 제목 → 부제 → 강조 문구 → 설명 → 버튼 2개 | 오른쪽 미리보기 이미지) -->
+  <!-- 히어로: tasteskill.dev 구조 (제목 → 부제 → 방향 요약 → 버튼 2개 | 오른쪽 메인 이미지) -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-text">
-      <NuxtLink v-if="latest" :to="latest.path" class="badge">새 소식 · {{ latest.title }} v{{ latest.meta.version }} 업데이트</NuxtLink>
       <h1 id="hero-title" class="hero-title">UX Guide</h1>
       <p class="hero-sub">프로덕트 디자이너를 위한 UX 정책서</p>
-      <p class="hero-tag">SaaS · 공공 서비스 사용자를 위한 경험 설계 기준입니다.</p>
-      <p class="hero-desc">{{ purposes.join(' · ') }}을 기준으로 기능 정책과 팝업 문구를 정리합니다. 읽고, 필요한 항목을 그대로 복사해 씁니다.</p>
+      <!-- UX 정책의 방향 4가지 요약 (피그마 'UX 표준 정책_v1.0' A 블록) -->
+      <p class="hero-desc">누구나 설명 없이 쓸 수 있게, 실제 업무 흐름 순서대로, 같은 상황에는 같은 규칙으로 설계합니다.</p>
       <div class="hero-cta">
-        <a href="#list" class="btn-primary">정책 목록 보기</a>
-        <NuxtLink to="/policies/popups" class="btn">팝업 문구 보기</NuxtLink>
+        <button type="button" class="btn-primary" @click="versionDialog?.showModal()">버전 수정 팝업 보기</button>
+        <button type="button" class="btn" @click="copyLink">링크 복사</button>
+        <span aria-live="polite" class="muted">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
       </div>
     </div>
-    <div class="hero-media" aria-hidden="true">
-      <div class="ph">[이미지 자리: 정책 페이지 미리보기]</div>
-      <div class="ph">[이미지 자리: 팝업 미리보기]</div>
-    </div>
+    <div class="ph hero-media">[이미지 자리: 메인화면]</div>
   </section>
 
-  <section aria-roledescription="carousel" aria-labelledby="dir-title" class="dir">
-    <div class="dir-head">
-      <h2 id="dir-title" class="label">UX 정책의 방향</h2>
-      <span>{{ cur + 1 }} / {{ directions.length }}</span>
-    </div>
-    <div aria-live="polite" class="box">
-      <strong>{{ String(cur + 1).padStart(2, '0') }} {{ directions[cur]!.title }}</strong>
-      <p>{{ directions[cur]!.text }}</p>
-    </div>
-    <div class="dir-nav">
-      <button type="button" aria-label="이전 방향" @click="go(cur - 1)">이전</button>
-      <span class="dots">
-        <button v-for="(d, i) in directions" :key="d.title" type="button" :aria-label="`방향 ${i + 1}: ${d.title}`" :aria-current="i === cur ? 'true' : undefined" @click="go(i)">{{ i === cur ? '●' : '○' }}</button>
-      </span>
-      <button type="button" aria-label="다음 방향" @click="go(cur + 1)">다음</button>
-    </div>
-  </section>
+  <dialog ref="versionDialog" aria-labelledby="ver-title" class="dialog">
+    <h2 id="ver-title">버전 수정 이력</h2>
+    <table>
+      <thead><tr><th>문서</th><th>버전</th><th>최종 수정일</th></tr></thead>
+      <tbody>
+        <tr v-for="d in versions" :key="d.path">
+          <td><NuxtLink :to="d.path">{{ d.title }}</NuxtLink></td>
+          <td>{{ d.meta.version }}</td>
+          <td>{{ d.meta.updated }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <form method="dialog" class="dialog-actions"><button>닫기</button></form>
+  </dialog>
 
   <section id="list">
     <h2 class="label">정책 목록</h2>

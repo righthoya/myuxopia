@@ -14,12 +14,7 @@ useSeoMeta({
   title: () => `${page.value?.title ?? info.title} · UX Guide`,
   description: () => page.value?.description || `${info.parent} · ${info.title}`
 })
-const copied = ref(false)
-async function copyLink() {
-  await navigator.clipboard.writeText(location.href)
-  copied.value = true
-  setTimeout(() => (copied.value = false), 2000)
-}
+const { copied, copyLink } = useCopyLink()
 </script>
 
 <template>
