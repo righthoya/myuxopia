@@ -7,14 +7,17 @@ const q = ref('')
 const rows = computed(() => allPages
   .filter(p => (tab.value === '전체' || p.parent === tab.value) && p.title.includes(q.value.trim()))
   .map(p => ({ ...p, doc: docs.value?.find(d => d.path === p.to) })))
-// 목적과 방향 · 설계 원칙 (docs/map.md 결정 사항 요약)
-const principles = [
-  '복사해서 바로 씁니다. 페이지 전체와 항목별 복사를 제공합니다.',
-  '프로젝트마다 바뀌는 값은 {변수}로 표시합니다.',
-  '규칙의 강도를 필수 · 권장 · 선택으로 나눕니다.',
-  '문구는 합니다체로 씁니다.',
-  '색만으로 구분하지 않습니다. (KWCAG 2.2)'
+// UX 정책의 목적과 방향 (피그마 'UX 표준 정책_v1.0' A 블록). 방향 설명 문장은 초안
+const purposes = ['이용자 중심', '업무 효율과 만족도', '법 준수 (접근성 · 개인정보)', '설계 · 개발 일관성']
+const directions = [
+  { title: '직관성 · 명확성', text: '처음 쓰는 사람도 설명 없이 다음 행동을 알 수 있게 설계합니다.' },
+  { title: '포용적 UX', text: '고령자와 디지털 약자도 같은 기능을 불편 없이 쓸 수 있게 합니다.' },
+  { title: '워크플로우 기반 설계', text: '화면 하나가 아니라 실제 업무 흐름 순서로 설계합니다.' },
+  { title: 'UI 시스템 일관성 · 확장성', text: '같은 상황에는 같은 패턴과 문구를 쓰고, 새 기능도 같은 규칙으로 늘려 갑니다.' },
+  { title: '데이터 기반 개선', text: '사용성 평가와 VOC로 정책을 계속 고쳐 나갑니다.' }
 ]
+const cur = ref(0)
+const go = (i: number) => { cur.value = (i + directions.length) % directions.length }
 const sample = '필수 약관에 동의해야 가입할 수 있습니다.'
 </script>
 
@@ -25,23 +28,33 @@ const sample = '필수 약관에 동의해야 가입할 수 있습니다.'
       <p class="label">프로덕트 디자이너를 위한 UX 정책서</p>
     </div>
     <div>
-      <p class="lead">프로젝트마다 반복되는 UX 결정을 표준으로 정리합니다. 정책과 팝업 문구를 읽고, 필요한 항목을 그대로 복사해 씁니다.</p>
-      <p class="label">설계 원칙</p>
-      <ol class="principles">
-        <li v-for="p in principles" :key="p">{{ p }}</li>
-      </ol>
+      <p class="label">UX 정책의 목적</p>
+      <p class="lead">SaaS · 공공 서비스 사용자를 위한 경험 설계 기준입니다.</p>
+      <ul class="purposes"><li v-for="p in purposes" :key="p">{{ p }}</li></ul>
+
+      <section aria-roledescription="carousel" aria-labelledby="dir-title" class="dir">
+        <div class="dir-head">
+          <h2 id="dir-title" class="label">UX 정책의 방향</h2>
+          <span>{{ cur + 1 }} / {{ directions.length }}</span>
+        </div>
+        <div aria-live="polite" class="box">
+          <strong>{{ String(cur + 1).padStart(2, '0') }} {{ directions[cur]!.title }}</strong>
+          <p>{{ directions[cur]!.text }}</p>
+        </div>
+        <div class="dir-nav">
+          <button type="button" aria-label="이전 방향" @click="go(cur - 1)">이전</button>
+          <span class="dots">
+            <button v-for="(d, i) in directions" :key="d.title" type="button" :aria-label="`방향 ${i + 1}: ${d.title}`" :aria-current="i === cur ? 'true' : undefined" @click="go(i)">{{ i === cur ? '●' : '○' }}</button>
+          </span>
+          <button type="button" aria-label="다음 방향" @click="go(cur + 1)">다음</button>
+        </div>
+      </section>
     </div>
   </section>
 
-  <section class="hero">
-    <div>
-      <p class="label">바로 써 보기</p>
-      <div class="cmd"><code>$ {{ sample }}</code><button type="button">복사</button></div>
-    </div>
-    <div>
-      <p class="label">적용 유형</p>
-      <ul class="chips"><li v-for="t in ['공통', 'B2B', '플랫폼', 'B2C', '공공']" :key="t">{{ t }}</li></ul>
-    </div>
+  <section>
+    <p class="label">바로 써 보기</p>
+    <div class="cmd"><code>$ {{ sample }}</code><button type="button">복사</button></div>
   </section>
 
   <section>
