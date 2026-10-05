@@ -66,3 +66,4 @@ pre { white-space: pre-wrap; border: 1px dashed #666; background: #eee; padding:
 .iconify, pre + button, .group > button { display: none !important; }
 pre * { color: inherit !important; background: none !important; }
 pre.language-mermaid::before { content: "[흐름도 다이어그램 자리 — 아래는 원본 텍스트]"; display: block; margin-bottom: 8px; font-family: system-ui, sans-serif; font-weight: bold; }
+.title-row { display: flex; align-items: center; gap: 12px; }

@@ -3,7 +3,13 @@ const route = useRoute()
 const { data: docs } = await useAsyncData('docs', () => queryCollection('content').all())
 const tabs = ['전체', ...menu.map(m => m.title)]
 const tab = computed(() => (route.query.tab as string) || '전체')
-const q = ref('')
+const router = useRouter()
+// 검색어도 주소(?q=)에 남겨, 검색 결과 화면을 그대로 공유할 수 있게
+const q = computed({
+  get: () => (route.query.q as string) ?? '',
+  set: v => router.replace({ query: { ...route.query, q: v || undefined } })
+})
+useSeoMeta({ title: 'UX Guide', description: '프로덕트 디자이너를 위한 UX 정책서. 정책과 팝업 문구를 읽고 복사해 씁니다.' })
 const rows = computed(() => allPages
   .filter(p => (tab.value === '전체' || p.parent === tab.value) && p.title.includes(q.value.trim()))
   .map(p => ({ ...p, doc: docs.value?.find(d => d.path === p.to) })))
@@ -13,12 +19,10 @@ const directions = [
   { title: '직관성 · 명확성', text: '처음 쓰는 사람도 설명 없이 다음 행동을 알 수 있게 설계합니다.' },
   { title: '포용적 UX', text: '고령자와 디지털 약자도 같은 기능을 불편 없이 쓸 수 있게 합니다.' },
   { title: '워크플로우 기반 설계', text: '화면 하나가 아니라 실제 업무 흐름 순서로 설계합니다.' },
-  { title: 'UI 시스템 일관성 · 확장성', text: '같은 상황에는 같은 패턴과 문구를 쓰고, 새 기능도 같은 규칙으로 늘려 갑니다.' },
-  { title: '데이터 기반 개선', text: '사용성 평가와 VOC로 정책을 계속 고쳐 나갑니다.' }
+  { title: 'UI 시스템 일관성 · 확장성', text: '같은 상황에는 같은 패턴과 문구를 쓰고, 새 기능도 같은 규칙으로 늘려 갑니다.' }
 ]
 const cur = ref(0)
 const go = (i: number) => { cur.value = (i + directions.length) % directions.length }
-const sample = '필수 약관에 동의해야 가입할 수 있습니다.'
 </script>
 
 <template>
@@ -52,17 +56,13 @@ const sample = '필수 약관에 동의해야 가입할 수 있습니다.'
     </div>
   </section>
 
-  <section>
-    <p class="label">바로 써 보기</p>
-    <div class="cmd"><code>$ {{ sample }}</code><button type="button">복사</button></div>
-  </section>
 
   <section>
     <h2 class="label">정책 목록</h2>
     <label for="q" class="sr">정책 검색</label>
     <input id="q" v-model="q" type="search" class="search" placeholder="정책·팝업 검색">
     <nav aria-label="분류" class="tabs">
-      <NuxtLink v-for="t in tabs" :key="t" :to="{ query: t === '전체' ? {} : { tab: t } }" :aria-current="t === tab ? 'page' : undefined">{{ t }}</NuxtLink>
+      <NuxtLink v-for="t in tabs" :key="t" :to="{ query: { ...route.query, tab: t === '전체' ? undefined : t } }" :aria-current="t === tab ? 'page' : undefined">{{ t }}</NuxtLink>
     </nav>
     <table class="list">
       <thead><tr><th>#</th><th>이름</th><th>상태</th><th>최종 수정일</th></tr></thead>

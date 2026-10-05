@@ -8,6 +8,18 @@ const toc = computed(() => page.value?.body?.toc?.links ?? info.sections.map(s =
 const related = computed(() => ((page.value?.meta.related as string[]) ?? []).map(id => findPage(idToPath(id))).filter(Boolean))
 const siblings = allPages.filter(p => p.parent === info.parent && p.to !== info.to)
 const mode = ref<'all' | 'required'>('all')
+
+// 링크 공유: 메신저 미리보기용 제목·설명 + 주소 복사
+useSeoMeta({
+  title: () => `${page.value?.title ?? info.title} · UX Guide`,
+  description: () => page.value?.description || `${info.parent} · ${info.title}`
+})
+const copied = ref(false)
+async function copyLink() {
+  await navigator.clipboard.writeText(location.href)
+  copied.value = true
+  setTimeout(() => (copied.value = false), 2000)
+}
 </script>
 
 <template>
@@ -17,7 +29,11 @@ const mode = ref<'all' | 'required'>('all')
     <template v-if="info.group"> / {{ info.group }}</template>
     / <span aria-current="page">{{ info.title }}</span>
   </nav>
-  <h1>{{ page?.title ?? info.title }}.</h1>
+  <div class="title-row">
+    <h1>{{ page?.title ?? info.title }}.</h1>
+    <button type="button" @click="copyLink">링크 복사</button>
+    <span aria-live="polite" class="muted">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
+  </div>
   <ul class="chips"><li v-for="t in (page?.meta.tags as string[]) ?? ['공통']" :key="t">{{ t }}</li></ul>
 
   <div class="detail">
