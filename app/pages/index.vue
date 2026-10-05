@@ -26,9 +26,13 @@ const versions = computed(() => [...(docs.value ?? [])].sort((a, b) => String(b.
       <h1 id="hero-title" class="hero-title">UX Guide</h1>
       <p class="hero-sub">프로덕트 디자이너를 위한 UX 정책서</p>
       <!-- UX 정책의 방향 4가지 요약 (피그마 'UX 표준 정책_v1.0' A 블록) -->
-      <p class="hero-desc">누구나 설명 없이 쓸 수 있게, 실제 업무 흐름 순서대로, 같은 상황에는 같은 규칙으로 설계합니다.</p>
+      <p class="hero-desc">
+        처음 쓰는 사람도 설명 없이 다음 행동을 알 수 있게 설계합니다.<br>
+        디지털 약자를 포함한 누구나 업무 흐름대로 쓸 수 있게 합니다.<br>
+        같은 상황에는 같은 패턴과 문구를 써서 서비스 전체를 일관되게 만듭니다.
+      </p>
       <div class="hero-cta">
-        <button type="button" class="btn-primary" @click="versionDialog?.showModal()">버전 수정 팝업 보기</button>
+        <button type="button" class="btn-primary" @click="versionDialog?.showModal()">v1.0 버전</button>
         <button type="button" class="btn" @click="copyLink">링크 복사</button>
         <span aria-live="polite" class="muted">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
       </div>
