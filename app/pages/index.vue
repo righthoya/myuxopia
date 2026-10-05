@@ -21,43 +21,51 @@ const directions = [
   { title: '워크플로우 기반 설계', text: '화면 하나가 아니라 실제 업무 흐름 순서로 설계합니다.' },
   { title: 'UI 시스템 일관성 · 확장성', text: '같은 상황에는 같은 패턴과 문구를 쓰고, 새 기능도 같은 규칙으로 늘려 갑니다.' }
 ]
+// 히어로 배지: 가장 최근에 수정된 문서
+const latest = computed(() => [...(docs.value ?? [])].sort((a, b) => String(b.meta.updated).localeCompare(String(a.meta.updated)))[0])
 const cur = ref(0)
 const go = (i: number) => { cur.value = (i + directions.length) % directions.length }
 </script>
 
 <template>
+  <!-- 히어로: tasteskill.dev 구조 (배지 → 제목 → 부제 → 강조 문구 → 설명 → 버튼 2개 | 오른쪽 미리보기 이미지) -->
   <section class="hero" aria-labelledby="hero-title">
-    <div>
-      <h1 id="hero-title" class="ph wordmark">[로고 워드마크 자리: UX GUIDE]</h1>
-      <p class="label">프로덕트 디자이너를 위한 UX 정책서</p>
+    <div class="hero-text">
+      <NuxtLink v-if="latest" :to="latest.path" class="badge">새 소식 · {{ latest.title }} v{{ latest.meta.version }} 업데이트</NuxtLink>
+      <h1 id="hero-title" class="hero-title">UX Guide</h1>
+      <p class="hero-sub">프로덕트 디자이너를 위한 UX 정책서</p>
+      <p class="hero-tag">SaaS · 공공 서비스 사용자를 위한 경험 설계 기준입니다.</p>
+      <p class="hero-desc">{{ purposes.join(' · ') }}을 기준으로 기능 정책과 팝업 문구를 정리합니다. 읽고, 필요한 항목을 그대로 복사해 씁니다.</p>
+      <div class="hero-cta">
+        <a href="#list" class="btn-primary">정책 목록 보기</a>
+        <NuxtLink to="/policies/popups" class="btn">팝업 문구 보기</NuxtLink>
+      </div>
     </div>
-    <div>
-      <p class="label">UX 정책의 목적</p>
-      <p class="lead">SaaS · 공공 서비스 사용자를 위한 경험 설계 기준입니다.</p>
-      <ul class="purposes"><li v-for="p in purposes" :key="p">{{ p }}</li></ul>
-
-      <section aria-roledescription="carousel" aria-labelledby="dir-title" class="dir">
-        <div class="dir-head">
-          <h2 id="dir-title" class="label">UX 정책의 방향</h2>
-          <span>{{ cur + 1 }} / {{ directions.length }}</span>
-        </div>
-        <div aria-live="polite" class="box">
-          <strong>{{ String(cur + 1).padStart(2, '0') }} {{ directions[cur]!.title }}</strong>
-          <p>{{ directions[cur]!.text }}</p>
-        </div>
-        <div class="dir-nav">
-          <button type="button" aria-label="이전 방향" @click="go(cur - 1)">이전</button>
-          <span class="dots">
-            <button v-for="(d, i) in directions" :key="d.title" type="button" :aria-label="`방향 ${i + 1}: ${d.title}`" :aria-current="i === cur ? 'true' : undefined" @click="go(i)">{{ i === cur ? '●' : '○' }}</button>
-          </span>
-          <button type="button" aria-label="다음 방향" @click="go(cur + 1)">다음</button>
-        </div>
-      </section>
+    <div class="hero-media" aria-hidden="true">
+      <div class="ph">[이미지 자리: 정책 페이지 미리보기]</div>
+      <div class="ph">[이미지 자리: 팝업 미리보기]</div>
     </div>
   </section>
 
+  <section aria-roledescription="carousel" aria-labelledby="dir-title" class="dir">
+    <div class="dir-head">
+      <h2 id="dir-title" class="label">UX 정책의 방향</h2>
+      <span>{{ cur + 1 }} / {{ directions.length }}</span>
+    </div>
+    <div aria-live="polite" class="box">
+      <strong>{{ String(cur + 1).padStart(2, '0') }} {{ directions[cur]!.title }}</strong>
+      <p>{{ directions[cur]!.text }}</p>
+    </div>
+    <div class="dir-nav">
+      <button type="button" aria-label="이전 방향" @click="go(cur - 1)">이전</button>
+      <span class="dots">
+        <button v-for="(d, i) in directions" :key="d.title" type="button" :aria-label="`방향 ${i + 1}: ${d.title}`" :aria-current="i === cur ? 'true' : undefined" @click="go(i)">{{ i === cur ? '●' : '○' }}</button>
+      </span>
+      <button type="button" aria-label="다음 방향" @click="go(cur + 1)">다음</button>
+    </div>
+  </section>
 
-  <section>
+  <section id="list">
     <h2 class="label">정책 목록</h2>
     <label for="q" class="sr">정책 검색</label>
     <input id="q" v-model="q" type="search" class="search" placeholder="정책·팝업 검색">
