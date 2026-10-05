@@ -1,0 +1,17 @@
+{
+  "name": "myuxopia",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/content": "^3.16.1",
+    "@nuxt/ui": "^4.11.3",
+    "nuxt": "^4.5.2",
+    "tailwindcss": "^4.3.3"
+  }
+}
