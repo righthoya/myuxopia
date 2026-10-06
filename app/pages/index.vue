@@ -25,8 +25,11 @@ const versions = computed(() => [...(docs.value ?? [])].sort((a, b) => String(b.
     <div class="hero-text">
       <h1 id="hero-title" class="hero-title">UX Guide</h1>
       <p class="hero-sub">프로덕트 디자이너를 위한 UX 정책서</p>
-      <!-- UX 정책의 방향 4가지 요약 (피그마 'UX 표준 정책_v1.0' A 블록) -->
-      <p class="hero-desc">누구나 설명 없이 다음 행동을 알 수 있도록, 실제 업무 흐름 순서대로 같은 상황에는 같은 패턴과 문구로 설계합니다.</p>
+      <p class="hero-desc">
+        프로젝트마다 다시 쓰던 UX 정책, 한 곳에 모았습니다.<br>
+        정책서 쓰는 시간은 줄이고<br>
+        더 좋은 경험을 고민하는 데 쓰세요.
+      </p>
       <div class="hero-cta">
         <button type="button" class="btn-primary" @click="versionDialog?.showModal()">v1.0 버전</button>
         <button type="button" class="btn" @click="copyLink">링크 복사</button>
