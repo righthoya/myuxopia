@@ -61,7 +61,7 @@ function onMove(e: PointerEvent) {
   <dialog ref="versionDialog" aria-labelledby="ver-title" class="dialog">
     <h2 id="ver-title">버전 수정 이력</h2>
     <table>
-      <thead><tr><th>문서</th><th>버전</th><th>좋아요</th></tr></thead>
+      <thead><tr><th>문서</th><th>버전</th><th>최종 수정일</th></tr></thead>
       <tbody>
         <tr v-for="d in versions" :key="d.path">
           <td><NuxtLink :to="d.path">{{ d.title }}</NuxtLink></td>
