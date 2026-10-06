@@ -72,17 +72,11 @@ export const menu = [
   }
 ]
 
-// 헤더 링크 (메뉴 밖 페이지)
-export const extraPages = [
-  { title: '변경 이력', to: '/changelog', sections: ['날짜별 변경 목록'] },
-  { title: '설계자 부록', to: '/appendix', sections: ['화면설계서 작성 요소', '명칭 규정'] }
-]
-
 // 모든 2depth 페이지를 한 줄로 (홈 목록·같은 분류 목록에 사용)
 export const allPages = menu.flatMap(m => m.groups.flatMap(g => g.items.map(i => ({ ...i, parent: m.title, group: g.label ?? '', sections: m.sections }))))
 
 export function findPage(path: string) {
-  return allPages.find(p => p.to === path) ?? extraPages.map(p => ({ ...p, parent: '', group: '' })).find(p => p.to === path)
+  return allPages.find(p => p.to === path)
 }
 
 // MD 머리말 related의 id → 주소
