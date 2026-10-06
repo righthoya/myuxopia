@@ -35,25 +35,8 @@ export const menu = [
         { title: '헤더', to: '/patterns/header' },
         { title: '푸터', to: '/patterns/footer' }
       ] },
-      { label: '게시판', items: [
-        { title: '리스트', to: '/patterns/list' },
-        { title: '등록', to: '/patterns/create' },
-        { title: '상세', to: '/patterns/detail' },
-        { title: '수정', to: '/patterns/edit' },
-        { title: '행 추가/삭제', to: '/patterns/rows' }
-      ] },
-      { label: '데이터 표시', items: [
-        { title: '금액·수치', to: '/patterns/number' },
-        { title: '마스킹', to: '/patterns/masking' }
-      ] },
       { label: '계정·시스템', items: [
-        { title: '로그인', to: '/patterns/login' },
-        { title: '회원가입', to: '/patterns/signup' },
         { title: '에러(403/404/500)', to: '/patterns/error' }
-      ] },
-      { label: '출력·알림', items: [
-        { title: '엑셀폼', to: '/patterns/excel' },
-        { title: '이메일', to: '/patterns/email' }
       ] }
     ]
   },
@@ -64,11 +47,6 @@ export const menu = [
       { title: '팝업 목록', to: '/policies/popups' },
       { title: '문구 가이드', to: '/popups/copy-guide' }
     ] }]
-  },
-  {
-    title: '접근성',
-    sections: ['체크리스트 (KWCAG 2.2, 33항목)'],
-    groups: [{ items: [{ title: '접근성 체크리스트', to: '/a11y/checklist' }] }]
   }
 ]
 
