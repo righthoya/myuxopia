@@ -61,7 +61,7 @@ function onMove(e: PointerEvent) {
   <dialog ref="versionDialog" aria-labelledby="ver-title" class="dialog">
     <h2 id="ver-title">버전 수정 이력</h2>
     <table>
-      <thead><tr><th>문서</th><th>버전</th><th>조회수</th></tr></thead>
+      <thead><tr><th>문서</th><th>버전</th><th>좋아요</th></tr></thead>
       <tbody>
         <tr v-for="d in versions" :key="d.path">
           <td><NuxtLink :to="d.path">{{ d.title }}</NuxtLink></td>
@@ -81,13 +81,13 @@ function onMove(e: PointerEvent) {
       <NuxtLink v-for="t in tabs" :key="t" :to="{ query: { ...route.query, tab: t === '전체' ? undefined : t } }" :aria-current="t === tab ? 'page' : undefined">{{ t }}</NuxtLink>
     </nav>
     <table class="list">
-      <thead><tr><th>#</th><th>이름</th><th>상태</th><th>조회수</th></tr></thead>
+      <thead><tr><th>#</th><th>이름</th><th>상태</th><th>좋아요</th></tr></thead>
       <tbody>
         <tr v-for="(r, i) in rows" :key="r.to">
           <td>{{ i + 1 }}</td>
           <td><NuxtLink :to="r.to"><strong>{{ r.title }}</strong></NuxtLink> <span class="muted">{{ r.parent }}{{ r.group && ' / ' + r.group }}</span></td>
           <td>{{ r.doc ? 'v' + r.doc.meta.version : '준비 중' }}</td>
-          <td>{{ stats[r.to]?.views ?? 0 }}</td>
+          <td>{{ stats[r.to]?.likes ?? 0 }}</td>
         </tr>
         <tr v-if="!rows.length"><td colspan="4">검색 결과가 없습니다.</td></tr>
       </tbody>
