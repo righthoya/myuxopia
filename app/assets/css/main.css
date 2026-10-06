@@ -1,6 +1,6 @@
 /* 스케치 단계: 흑백 와이어프레임 (구조 참고: skills.sh). 디자인은 2단계에서 */
 * { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, sans-serif; color: #111; background: #fff; line-height: 1.6; }
+body { margin: 0; overflow-x: clip; font-family: system-ui, sans-serif; color: #111; background: #fff; line-height: 1.6; }
 a { color: inherit; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .muted { color: #666; font-size: 13px; }
@@ -14,12 +14,19 @@ code, pre { font-family: ui-monospace, monospace; }
 .wrap { max-width: 1000px; margin: 0 auto; padding: 32px 24px 80px; }
 
 /* 홈 */
-.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; min-height: 70vh; margin-bottom: 24px; }
+/* 히어로: 화면 전체 폭. .wrap 밖으로 꺼내기 */
+.hero { position: relative; overflow: hidden; width: 100vw; margin: -32px 0 24px calc(50% - 50vw); min-height: 80vh; display: grid; align-items: center; border-bottom: 1px solid #ccc; }
+.hero-bg { position: absolute; inset: 0; pointer-events: none; user-select: none; }
+.hero-bg p { position: absolute; inset: 0; margin: 0; padding: 16px; font-size: 22px; line-height: 1.9; color: #e4e4e4; overflow: hidden; }
+.hero-bg .reveal { color: #111; -webkit-mask-image: radial-gradient(circle var(--r) at var(--x, -999px) var(--y, -999px), #000 30%, transparent 100%); mask-image: radial-gradient(circle var(--r) at var(--x, -999px) var(--y, -999px), #000 30%, transparent 100%); }
+.hero { --r: 0px; }
+.hero:hover { --r: 180px; }
+.hero-inner { position: relative; max-width: 1000px; width: 100%; margin: 0 auto; padding: 0 24px; }
+.hero-text { display: inline-block; padding: 32px 40px; background: #fff; border: 1px solid #000; }
 .hero-title { font-size: 64px; line-height: 1.1; margin: 16px 0 8px; }
 .hero-sub { font-size: 28px; margin: 0; }
 .hero-desc { color: #444; line-height: 1.8; }
 .hero-cta { display: flex; align-items: center; gap: 8px; margin-top: 24px; }
-.ph.hero-media { min-height: 360px; margin: 0; }
 .dialog { width: min(560px, 90vw); border: 1px solid #000; padding: 24px; }
 .dialog::backdrop { background: rgb(0 0 0 / .4); }
 .dialog h2 { margin-top: 0; font-size: 18px; }

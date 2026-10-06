@@ -17,26 +17,44 @@ const { copied, copyLink } = useCopyLink()
 // 버전 수정 이력 팝업 (브라우저 기본 dialog: ESC로 닫힘, 닫히면 포커스 복귀)
 const versionDialog = ref<HTMLDialogElement>()
 const versions = computed(() => [...(docs.value ?? [])].sort((a, b) => String(b.meta.updated).localeCompare(String(a.meta.updated))))
+// 히어로 배경 글씨 (hackerrank.com 방식: 흐린 글씨 + 포인터 주변만 진하게). 내용은 팝업 문구
+const bgText = [
+  '곧 자동 로그아웃됩니다', '작성을 그만두시겠습니까?', '접근 권한이 없습니다', '일시적인 오류가 발생했습니다',
+  '로그아웃하시겠습니까?', '회원가입이 완료되었습니다', '저장되었습니다.', '삭제한 내용은 되돌릴 수 없습니다.',
+  '입력하지 않은 항목이 있습니다', '파일을 올릴 수 없습니다', '문의 등록이 완료되었습니다', '필수 약관에 동의해야 가입할 수 있습니다.',
+  '{유효 시간: 5분}', '{보관 기간: 30일}', '필수', '권장', '선택'
+].join('   ·   ').repeat(12)
+function onMove(e: PointerEvent) {
+  const el = e.currentTarget as HTMLElement
+  const r = el.getBoundingClientRect()
+  el.style.setProperty('--x', `${e.clientX - r.left}px`)
+  el.style.setProperty('--y', `${e.clientY - r.top}px`)
+}
 </script>
 
 <template>
-  <!-- 히어로: tasteskill.dev 구조 (제목 → 부제 → 방향 요약 → 버튼 2개 | 오른쪽 메인 이미지) -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-text">
-      <h1 id="hero-title" class="hero-title">UX Guide</h1>
-      <p class="hero-sub">프로덕트 디자이너를 위한 UX 정책서</p>
-      <p class="hero-desc">
-        프로젝트마다 다시 쓰던 UX 정책, 한 곳에 모았습니다.<br>
-        정책서 쓰는 시간은 줄이고<br>
-        더 좋은 경험을 고민하는 데 쓰세요.
-      </p>
-      <div class="hero-cta">
-        <button type="button" class="btn-primary" @click="versionDialog?.showModal()">v1.0 버전</button>
-        <button type="button" class="btn" @click="copyLink">링크 복사</button>
-        <span aria-live="polite" class="muted">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
+  <!-- 히어로: 화면 전체 폭 배경(흐린 글씨, 포인터 주변만 진하게) 위에 글·버튼이 떠 있음 -->
+  <section class="hero" aria-labelledby="hero-title" @pointermove="onMove">
+    <div class="hero-bg" aria-hidden="true">
+      <p>{{ bgText }}</p>
+      <p class="reveal">{{ bgText }}</p>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1 id="hero-title" class="hero-title">UX Guide</h1>
+        <p class="hero-sub">프로덕트 디자이너를 위한 UX 정책서</p>
+        <p class="hero-desc">
+          프로젝트마다 다시 쓰던 UX 정책, 한 곳에 모았습니다.<br>
+          정책서 쓰는 시간은 줄이고<br>
+          더 좋은 경험을 고민하는 데 쓰세요.
+        </p>
+        <div class="hero-cta">
+          <button type="button" class="btn-primary" @click="versionDialog?.showModal()">v1.0 버전</button>
+          <button type="button" class="btn" @click="copyLink">링크 복사</button>
+          <span aria-live="polite" class="muted">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
+        </div>
       </div>
     </div>
-    <div class="ph hero-media">[이미지 자리: 메인화면]</div>
   </section>
 
   <dialog ref="versionDialog" aria-labelledby="ver-title" class="dialog">
