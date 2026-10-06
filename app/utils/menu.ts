@@ -14,7 +14,7 @@ export const menu = [
     groups: [
       { label: '계정', items: [
         { title: '비밀번호', to: '/policies/password' },
-        { title: '권한·역할', to: '/policies/permission' }
+        { title: '권한', to: '/policies/permission' }
       ] },
       { label: '탐색', items: [{ title: '검색·필터링', to: '/policies/search' }] },
       { label: '운영', items: [

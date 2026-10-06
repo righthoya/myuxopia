@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">
+  <!-- 권한 확인 흐름 (피그마 'UX 표준 정책' 49:170 기준, 흑백). 레인: 진입 · 권한 확인 · 결과 -->
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111"/></marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="90" fill="#f2f2f2"/>
+  <rect x="0" y="90" width="640" height="180" fill="#fafafa"/>
+  <rect x="0" y="270" width="640" height="110" fill="#f2f2f2"/>
+  <g font-weight="bold" text-anchor="start"><text x="10" y="18">진입</text><text x="10" y="108">권한 확인</text><text x="10" y="288">결과</text></g>
+
+  <g fill="none" stroke="#111" stroke-width="1.2">
+    <path d="M110,68 V140 H188" marker-end="url(#a)"/>
+    <path d="M310,140 H358" marker-end="url(#a)"/>
+    <path d="M250,160 V198" marker-end="url(#a)"/>
+    <path d="M425,165 V293" marker-end="url(#a)"/>
+    <path d="M490,140 H575 V298" marker-end="url(#a)"/>
+    <path d="M355,325 H327" stroke-dasharray="4 3" marker-end="url(#a)"/>
+  </g>
+
+  <g fill="#fff" stroke="#111">
+    <rect x="40" y="28" width="140" height="40"/>
+    <rect x="190" y="120" width="120" height="40"/>
+    <rect x="360" y="115" width="130" height="50"/>
+    <rect x="180" y="200" width="140" height="50"/>
+    <rect x="175" y="300" width="150" height="50" stroke-dasharray="4 3"/>
+    <rect x="355" y="295" width="140" height="60"/>
+    <rect x="520" y="300" width="110" height="50"/>
+  </g>
+
+  <g fill="#111">
+    <text x="110" y="52">메뉴·기능 접근 시도</text>
+    <text x="250" y="144">로그인 여부 확인</text>
+    <text x="425" y="136">권한 확인</text><text x="425" y="153" font-size="10">역할·기능·데이터 범위</text>
+    <text x="250" y="221">로그인 필요 안내</text><text x="250" y="238" font-size="10">로그인 후 원래 화면 복귀</text>
+    <text x="250" y="321">권한 요청 (추가 제안)</text><text x="250" y="338" font-size="10">사유 입력 → 승인·반려</text>
+    <text x="425" y="315" font-weight="bold">권한 없음 안내</text><text x="425" y="331" font-size="10">사유 · 권한 요청 방법</text><text x="425" y="345" font-size="10">이전 화면 이동</text>
+    <text x="575" y="321">화면·기능</text><text x="575" y="337">정상 이용</text>
+  </g>
+
+  <g fill="#555" font-size="10">
+    <text x="334" y="132">로그인 상태</text>
+    <text x="256" y="183" text-anchor="start">비로그인</text>
+    <text x="431" y="232" text-anchor="start">권한 없음</text>
+    <text x="532" y="132">권한 있음</text>
+  </g>
+</svg>
