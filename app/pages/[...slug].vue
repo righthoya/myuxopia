@@ -7,7 +7,6 @@ if (!info) throw createError({ statusCode: 404, statusMessage: '페이지를 찾
 const toc = computed(() => page.value?.body?.toc?.links ?? info.sections.map(s => ({ id: '', text: s })))
 const related = computed(() => ((page.value?.meta.related as string[]) ?? []).map(id => findPage(idToPath(id))).filter(Boolean))
 const siblings = allPages.filter(p => p.parent === info.parent && p.to !== info.to)
-const mode = ref<'all' | 'required'>('all')
 
 // 링크 공유: 메신저 미리보기용 제목·설명 + 주소 복사
 useSeoMeta({
@@ -33,15 +32,6 @@ const { copied, copyLink } = useCopyLink()
 
   <div class="detail">
     <article>
-      <div class="head">
-        <h2 class="label">복사</h2>
-        <div role="group" aria-label="복사 범위" class="toggle">
-          <button type="button" :aria-pressed="mode === 'all'" @click="mode = 'all'">전체</button>
-          <button type="button" :aria-pressed="mode === 'required'" @click="mode = 'required'">필수만</button>
-        </div>
-      </div>
-      <div class="cmd"><code>$ {{ page?.title ?? info.title }} 정책 — {{ mode === 'all' ? '전체 항목' : '필수 항목만' }}</code><button type="button">복사</button></div>
-
       <h2 class="label">요약</h2>
       <div class="box">{{ page?.description || (page ? '[요약 자리: MD 머리말 description]' : '준비 중입니다.') }}</div>
 

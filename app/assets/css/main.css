@@ -81,3 +81,4 @@ pre.language-mermaid::before { content: "[흐름도 다이어그램 자리 — �
 .grade-filter legend { font-weight: bold; padding: 0 4px; }
 .grade-filter .muted { margin-left: auto; }
 h2, h3 { scroll-margin-top: 72px; }
+td > button { white-space: nowrap; }
