@@ -1,12 +1,11 @@
 <script setup lang="ts">
 // MD 표. '등급' 칸이 있으면: 필수·권장·선택 체크박스로 행 노출 관리
-// '내용' 칸도 있으면(규칙 표): 행마다 [복사] 버튼 + 보이는 행 한꺼번에 복사. 복사할 때 {변수}는 그대로
+// '내용' 칸도 있으면(규칙 표): 행마다 [복사] 버튼. 복사할 때 {변수}는 그대로
 const grades = ['필수', '권장', '선택'] as const
 const show = reactive<Record<string, boolean>>({ 필수: true, 권장: true, 선택: true })
 const table = ref<HTMLTableElement>()
 const col = reactive({ grade: -1, item: -1, text: -1 })
 const visible = ref(0)
-const copiedAll = ref(false)
 
 const cellText = (tr: HTMLTableRowElement, i: number) => tr.cells[i]?.textContent?.trim() ?? ''
 const rows = () => [...(table.value?.tBodies[0]?.rows ?? [])]
@@ -49,21 +48,13 @@ watchEffect(() => {
   visible.value = n
 })
 
-async function copyVisible() {
-  const lines = rows().filter(tr => !tr.hidden)
-    .map(tr => `- ${col.item >= 0 ? cellText(tr, col.item) + ': ' : ''}${cellText(tr, col.text)} (${cellText(tr, col.grade)})`)
-  await navigator.clipboard.writeText(lines.join('\n'))
-  copiedAll.value = true
-  setTimeout(() => (copiedAll.value = false), 2000)
-}
 </script>
 
 <template>
   <fieldset v-if="col.grade >= 0" class="grade-filter">
     <legend>등급</legend>
     <label v-for="g in grades" :key="g"><input v-model="show[g]" type="checkbox"> {{ g }}</label>
-    <span aria-live="polite" class="muted">{{ copiedAll ? `${visible}개 항목을 복사했습니다.` : `${visible}개 항목 표시` }}</span>
-    <button v-if="col.text >= 0" type="button" @click="copyVisible">표시된 항목 복사</button>
+    <span aria-live="polite" class="muted">{{ visible }}개 항목 표시</span>
   </fieldset>
   <table ref="table"><slot /></table>
 </template>
