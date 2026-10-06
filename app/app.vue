@@ -8,7 +8,7 @@ const { copied, copyLink } = useCopyLink()
 <template>
   <UApp>
     <header class="top">
-      <NuxtLink to="/"><strong>UX Guide</strong></NuxtLink>
+      <NuxtLink to="/"><strong>UXopia</strong></NuxtLink>
       <nav aria-label="보조 메뉴">
         <a :href="FEEDBACK_URL" target="_blank" rel="noopener">피드백 (카톡 커뮤니티)</a>
         <a :href="SUPPORT_URL" target="_blank" rel="noopener">커피값 후원</a>

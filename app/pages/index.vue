@@ -9,7 +9,7 @@ const q = computed({
   get: () => (route.query.q as string) ?? '',
   set: v => router.replace({ query: { ...route.query, q: v || undefined } })
 })
-useSeoMeta({ title: 'UX Guide', description: '프로덕트 디자이너를 위한 UX 정책서. 정책과 팝업 문구를 읽고 복사해 씁니다.' })
+useSeoMeta({ title: 'UXopia', description: '프로덕트 디자이너를 위한 UX 정책서. 정책과 팝업 문구를 읽고 복사해 씁니다.' })
 const rows = computed(() => allPages
   .filter(p => (tab.value === '전체' || p.parent === tab.value) && p.title.includes(q.value.trim()))
   .map(p => ({ ...p, doc: docs.value?.find(d => d.path === p.to) })))
@@ -41,7 +41,7 @@ function onMove(e: PointerEvent) {
     </div>
     <div class="hero-inner">
       <div class="hero-text">
-        <h1 id="hero-title" class="hero-title">UX Guide</h1>
+        <h1 id="hero-title" class="hero-title">UXopia</h1>
         <p class="hero-sub">프로덕트 디자이너를 위한 UX 정책서</p>
         <p class="hero-desc">
           프로젝트마다 다시 쓰던 UX 정책, 한 곳에 모았습니다.<br>

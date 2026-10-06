@@ -11,7 +11,7 @@ const mode = ref<'all' | 'required'>('all')
 
 // 링크 공유: 메신저 미리보기용 제목·설명 + 주소 복사
 useSeoMeta({
-  title: () => `${page.value?.title ?? info.title} · UX Guide`,
+  title: () => `${page.value?.title ?? info.title} · UXopia`,
   description: () => page.value?.description || `${info.parent} · ${info.title}`
 })
 const { copied, copyLink } = useCopyLink()
@@ -19,7 +19,7 @@ const { copied, copyLink } = useCopyLink()
 
 <template>
   <nav aria-label="현재 위치" class="crumb">
-    <NuxtLink to="/">UX Guide</NuxtLink>
+    <NuxtLink to="/">UXopia</NuxtLink>
     <template v-if="info.parent"> / <NuxtLink :to="{ path: '/', query: { tab: info.parent } }">{{ info.parent }}</NuxtLink></template>
     <template v-if="info.group"> / {{ info.group }}</template>
     / <span aria-current="page">{{ info.title }}</span>
@@ -68,8 +68,6 @@ const { copied, copyLink } = useCopyLink()
       <dl class="facts">
         <dt>버전</dt><dd>{{ page?.meta.version ?? '—' }}</dd>
         <dt>최종 수정일</dt><dd>{{ page?.meta.updated ?? '—' }}</dd>
-        <dt>출처</dt><dd>{{ page?.meta.source ?? '—' }}</dd>
-        <dt>피그마</dt><dd>준비 중</dd>
       </dl>
       <nav aria-label="이 페이지 목차" class="toc">
         <p class="label">이 페이지 목차</p>
