@@ -17,7 +17,7 @@ code, pre { font-family: ui-monospace, monospace; }
 .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; min-height: 70vh; margin-bottom: 24px; }
 .hero-title { font-size: 64px; line-height: 1.1; margin: 16px 0 8px; }
 .hero-sub { font-size: 28px; margin: 0; }
-.hero-desc { color: #444; line-height: 1.8; }
+.hero-desc { color: #444; line-height: 1.8; max-width: 400px; }
 .hero-cta { display: flex; align-items: center; gap: 8px; margin-top: 24px; }
 .ph.hero-media { min-height: 360px; margin: 0; }
 .dialog { width: min(560px, 90vw); border: 1px solid #000; padding: 24px; }
