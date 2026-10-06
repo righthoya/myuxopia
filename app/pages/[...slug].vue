@@ -14,6 +14,22 @@ useSeoMeta({
   description: () => page.value?.description || `${info.parent} · ${info.title}`
 })
 const { copied, copyLink } = useCopyLink()
+
+// 조회수·좋아요. 조회는 브라우저 탭당 1회, 좋아요 여부는 이 브라우저에 기억
+const stat = ref({ views: 0, likes: 0 })
+const liked = ref(false)
+const send = (type: string) => $fetch('/api/stats', { method: 'POST', body: { path: info.to, type } })
+onMounted(async () => {
+  try { liked.value = localStorage.getItem('liked:' + info.to) === '1' } catch {}
+  let seen = false
+  try { seen = sessionStorage.getItem('viewed:' + info.to) === '1'; sessionStorage.setItem('viewed:' + info.to, '1') } catch {}
+  stat.value = seen ? ((await $fetch<Stats>('/api/stats'))[info.to] ?? stat.value) : await send('view')
+})
+async function toggleLike() {
+  liked.value = !liked.value
+  try { localStorage.setItem('liked:' + info.to, liked.value ? '1' : '0') } catch {}
+  stat.value = await send(liked.value ? 'like' : 'unlike')
+}
 </script>
 
 <template>
@@ -25,6 +41,7 @@ const { copied, copyLink } = useCopyLink()
   </nav>
   <div class="title-row">
     <h1>{{ page?.title ?? info.title }}.</h1>
+    <button type="button" :aria-pressed="liked" class="like" @click="toggleLike">좋아요 {{ stat.likes }}</button>
     <button type="button" @click="copyLink">링크 복사</button>
     <span aria-live="polite" class="muted">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
   </div>
@@ -58,6 +75,7 @@ const { copied, copyLink } = useCopyLink()
       <dl class="facts">
         <dt>버전</dt><dd>{{ page?.meta.version ?? '—' }}</dd>
         <dt>최종 수정일</dt><dd>{{ page?.meta.updated ?? '—' }}</dd>
+        <dt>조회수</dt><dd>{{ stat.views }}</dd>
       </dl>
       <nav aria-label="이 페이지 목차" class="toc">
         <p class="label">이 페이지 목차</p>

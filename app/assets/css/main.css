@@ -86,3 +86,4 @@ td > button { white-space: nowrap; }
 .flow { margin: 16px 0; padding: 16px; border: 1px solid #999; }
 .flow svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 .flow summary { margin-top: 12px; font-size: 13px; cursor: pointer; }
+.like[aria-pressed="true"] { background: #111; color: #fff; }
