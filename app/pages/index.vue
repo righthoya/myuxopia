@@ -14,6 +14,7 @@ const rows = computed(() => allPages
   .filter(p => (tab.value === '전체' || p.parent === tab.value) && p.title.includes(q.value.trim()))
   .map(p => ({ ...p, doc: docs.value?.find(d => d.path === p.to) })))
 const { copied, copyLink } = useCopyLink()
+const siteUrl = useRequestURL().host
 const { data: stats } = await useFetch<Stats>('/api/stats', { default: () => ({}) })
 // 버전 수정 이력 팝업 (브라우저 기본 dialog: ESC로 닫힘, 닫히면 포커스 복귀)
 const versionDialog = ref<HTMLDialogElement>()
@@ -51,8 +52,18 @@ function onMove(e: PointerEvent) {
         </p>
         <div class="hero-cta">
           <button type="button" class="btn-primary" @click="versionDialog?.showModal()">v1.0 버전</button>
-          <button type="button" class="btn" @click="copyLink">링크 복사</button>
-          <span aria-live="polite" class="muted">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
+        </div>
+        <!-- 링크 복사: 명령줄 모양 박스 (skills.sh 'TRY IT NOW' 참고) -->
+        <div class="share">
+          <p id="share-label" class="share-label">링크 복사</p>
+          <div class="share-box">
+            <code><span aria-hidden="true">$ </span>{{ siteUrl }}</code>
+            <button type="button" aria-labelledby="share-label" :title="copied ? '복사했습니다' : '링크 복사'" @click="copyLink">
+              <svg v-if="!copied" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" /></svg>
+              <span v-else>복사됨</span>
+            </button>
+          </div>
+          <span aria-live="polite" class="sr">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
         </div>
       </div>
     </div>
