@@ -3,7 +3,7 @@ id: popup-catalog
 category: 팝업·문구
 title: 기본 팝업 목록과 문구
 tags: [공통]
-version: 0.2 (MVP 구분)
+version: 0.1 (초안)
 updated: 2026-10-05
 source: Claude 초안 · 피그마 미반영
 related: [policy-signup, policy-login, policy-password, policy-privacy, policy-error]

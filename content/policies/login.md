@@ -4,7 +4,7 @@ category: UX 정책
 title: 로그인
 description: 사용자가 서비스에 안전하고 빠르게 접근할 수 있도록 로그인 방식, 보조 기능, 로그인 후 연결, 보안 기준을 일관되게 정의합니다. (웹 데스크톱 기준)
 tags: [공통]
-version: 0.2 (2차 인증·세션 기준 추가)
+version: 0.1 (초안)
 updated: 2026-10-06
 source: 피그마 'UX 표준 정책' 로그인정책 (34:2) · 등급·{변수}·예시 문구는 Claude 초안
 related: [policy-signup, policy-password, popup-catalog]
