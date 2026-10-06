@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 215" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">
+  <!-- 문의하기 흐름 (피그마 'UX 표준 정책' 24:280 기준, 흑백). 세로 구역: 진입 · 등록 · 처리 · 완료 -->
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111"/></marker>
+  </defs>
+  <rect x="0" y="0" width="200" height="215" fill="#f2f2f2"/>
+  <rect x="200" y="0" width="220" height="215" fill="#fafafa"/>
+  <rect x="420" y="0" width="110" height="215" fill="#f2f2f2"/>
+  <rect x="530" y="0" width="110" height="215" fill="#fafafa"/>
+  <g font-weight="bold" text-anchor="start"><text x="10" y="18">진입</text><text x="210" y="18">등록</text><text x="430" y="18">처리</text><text x="540" y="18">완료</text></g>
+
+  <g fill="none" stroke="#111" stroke-width="1.2">
+    <path d="M95,58 H257 V78" marker-end="url(#a)"/>
+    <path d="M95,168 H102" marker-end="url(#a)"/>
+    <path d="M192,168 H257 V152" marker-end="url(#a)"/>
+    <path d="M305,116 H313" marker-end="url(#a)"/>
+    <path d="M410,116 H428" marker-end="url(#a)"/>
+    <path d="M520,116 H538" marker-end="url(#a)"/>
+  </g>
+
+  <g fill="#fff" stroke="#111">
+    <rect x="15" y="40" width="80" height="36"/>
+    <rect x="15" y="150" width="80" height="36"/>
+    <rect x="104" y="140" width="88" height="56"/>
+    <rect x="210" y="80" width="95" height="70"/>
+    <rect x="315" y="88" width="95" height="56"/>
+    <rect x="430" y="96" width="90" height="40"/>
+    <rect x="540" y="88" width="90" height="56"/>
+  </g>
+
+  <g fill="#111">
+    <text x="55" y="62" font-size="11">로그인 사용자</text>
+    <text x="55" y="172">비회원</text>
+    <text x="148" y="163" font-size="11">비회원 정보</text><text x="148" y="180" font-size="10">이메일·비밀번호</text>
+    <text x="257" y="104">문의 등록</text><text x="257" y="122" font-size="10">유형·제목·내용</text><text x="257" y="137" font-size="10">첨부·CAPTCHA</text>
+    <text x="362" y="111">문의 접수 완료</text><text x="362" y="128" font-size="10">ID 발급·메인 이동</text>
+    <text x="475" y="120" font-size="11">관리자 처리 중</text>
+    <text x="585" y="111" font-weight="bold">완료</text><text x="585" y="128" font-size="10">[완료] 상태 변경</text>
+  </g>
+</svg>

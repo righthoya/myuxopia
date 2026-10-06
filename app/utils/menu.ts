@@ -19,7 +19,7 @@ export const menu = [
       { label: '탐색', items: [{ title: '검색·필터링', to: '/policies/search' }] },
       { label: '운영', items: [
         { title: '알림', to: '/policies/notification' },
-        { title: '문의·고객 지원', to: '/policies/inquiry' }
+        { title: '문의 지원', to: '/policies/inquiry' }
       ] },
       { label: '데이터·보안·법', items: [
         { title: '개인정보 처리', to: '/policies/privacy' },
