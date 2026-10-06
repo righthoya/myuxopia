@@ -15,7 +15,7 @@ code, pre { font-family: ui-monospace, monospace; }
 /* 홈 */
 /* 히어로: 화면 전체 폭. .wrap 밖으로 꺼내기 */
 .hero { position: relative; overflow: hidden; width: 100vw; margin: -32px 0 24px calc(50% - 50vw); min-height: 80vh; display: grid; align-items: center; border-bottom: 1px solid #ccc; }
-.hero-bg { position: absolute; inset: 0; pointer-events: none; user-select: none; -webkit-mask-image: radial-gradient(ellipse 500px 300px at center, transparent 55%, #000 100%); mask-image: radial-gradient(ellipse 500px 300px at center, transparent 55%, #000 100%); }
+.hero-bg { position: absolute; inset: 0; pointer-events: none; user-select: none; -webkit-mask-image: radial-gradient(ellipse 480px 260px at center, transparent 55%, #000 100%); mask-image: radial-gradient(ellipse 480px 260px at center, transparent 55%, #000 100%); }
 .hero-bg p { position: absolute; inset: 0; margin: 0; padding: 16px; font-size: 22px; line-height: 1.9; color: #e4e4e4; overflow: hidden; }
 .hero-bg .reveal { color: #111; -webkit-mask-image: radial-gradient(circle var(--r) at var(--x, -999px) var(--y, -999px), #000 30%, transparent 100%); mask-image: radial-gradient(circle var(--r) at var(--x, -999px) var(--y, -999px), #000 30%, transparent 100%); }
 .hero { --r: 0px; }
@@ -89,9 +89,7 @@ td > button { white-space: nowrap; }
 .like[aria-pressed="true"] { background: #111; color: #fff; }
 
 /* 히어로 링크 복사 박스 */
-.share { width: min(440px, 100%); margin: 28px auto 0; text-align: left; text-shadow: none; }
-.share-label { margin: 0 0 8px; font-family: ui-monospace, monospace; font-size: 13px; letter-spacing: .06em; }
-.share-box { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: #111; color: #eee; border-radius: 8px; }
+.share-box { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-width: 260px; padding: 8px 12px 8px 16px; align-self: stretch; background: #111; color: #eee; border-radius: 8px; }
 .share-box code { font-size: 15px; overflow-wrap: anywhere; }
 .share-box code span { color: #888; }
 .share-box button { display: grid; place-items: center; padding: 4px; border: 0; background: none; color: #bbb; font-size: 12px; }

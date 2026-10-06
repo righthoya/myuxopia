@@ -50,15 +50,12 @@ function onMove(e: PointerEvent) {
           정책서 쓰는 시간은 줄이고<br>
           더 좋은 경험을 고민하는 데 쓰세요.
         </p>
+        <!-- 버전 버튼 옆 링크 복사: 명령줄 모양 박스 (skills.sh 'TRY IT NOW' 참고) -->
         <div class="hero-cta">
           <button type="button" class="btn-primary" @click="versionDialog?.showModal()">v1.0 버전</button>
-        </div>
-        <!-- 링크 복사: 명령줄 모양 박스 (skills.sh 'TRY IT NOW' 참고) -->
-        <div class="share">
-          <p id="share-label" class="share-label">링크 복사</p>
           <div class="share-box">
             <code><span aria-hidden="true">$ </span>{{ siteUrl }}</code>
-            <button type="button" aria-labelledby="share-label" :title="copied ? '복사했습니다' : '링크 복사'" @click="copyLink">
+            <button type="button" aria-label="링크 복사" :title="copied ? '복사했습니다' : '링크 복사'" @click="copyLink">
               <svg v-if="!copied" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" /></svg>
               <span v-else>복사됨</span>
             </button>
