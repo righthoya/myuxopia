@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 470" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">
+  <!-- 로그인 흐름 (피그마 'UX 표준 정책' 35:2 기준, 흑백). 레인: 진입 · 인증 · 완료 -->
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111"/></marker>
+  </defs>
+  <rect x="0" y="0" width="600" height="90" fill="#f2f2f2"/>
+  <rect x="0" y="90" width="600" height="200" fill="#fafafa"/>
+  <rect x="0" y="290" width="600" height="180" fill="#f2f2f2"/>
+  <g font-weight="bold" text-anchor="start"><text x="10" y="20">진입</text><text x="10" y="110">인증</text><text x="10" y="310">완료</text></g>
+
+  <g fill="none" stroke="#111" stroke-width="1.2">
+    <path d="M185,45 H213" marker-end="url(#a)"/>
+    <path d="M330,70 V108 M150,108 H505"/>
+    <path d="M150,108 V123" marker-end="url(#a)"/>
+    <path d="M330,108 V123" marker-end="url(#a)"/>
+    <path d="M505,108 V123" marker-end="url(#a)"/>
+    <path d="M360,170 V208" marker-end="url(#a)"/>
+    <path d="M150,170 V270 M275,170 V270 M360,248 V270 M505,170 V270 M150,270 H505"/>
+    <path d="M330,270 V313" marker-end="url(#a)"/>
+    <path d="M270,335 H232" marker-end="url(#a)"/>
+    <path d="M390,335 H428" marker-end="url(#a)"/>
+    <path d="M330,355 V403" stroke-dasharray="4 3" marker-end="url(#a)"/>
+    <path d="M265,428 H142 V357" stroke-dasharray="4 3" marker-end="url(#a)"/>
+    <path d="M395,428 H510 V357" stroke-dasharray="4 3" marker-end="url(#a)"/>
+  </g>
+
+  <g fill="#fff" stroke="#111">
+    <rect x="70" y="25" width="115" height="40"/>
+    <rect x="215" y="20" width="230" height="50"/>
+    <rect x="75" y="125" width="150" height="45"/>
+    <rect x="255" y="125" width="150" height="45"/>
+    <rect x="430" y="125" width="150" height="45"/>
+    <rect x="300" y="210" width="120" height="38"/>
+    <rect x="270" y="315" width="120" height="40"/>
+    <rect x="55" y="315" width="175" height="40"/>
+    <rect x="430" y="315" width="160" height="40"/>
+    <rect x="265" y="405" width="130" height="45"/>
+  </g>
+
+  <g fill="#111">
+    <text x="127" y="49">비로그인 사용자</text>
+    <text x="330" y="41">로그인 화면 진입</text><text x="330" y="58" font-size="11">직접 진입 / 로그인 필요 기능 접근</text>
+    <text x="150" y="144">기본 로그인</text><text x="150" y="161" font-size="11">아이디·비밀번호</text>
+    <text x="330" y="144">SNS 간편 로그인</text><text x="330" y="161" font-size="11">카카오·네이버·구글</text>
+    <text x="505" y="144">패스키 인증</text><text x="505" y="161" font-size="11">지원 환경에서만 노출</text>
+    <text x="360" y="233">간편 가입 연결</text>
+    <text x="330" y="339" font-weight="bold">인증 성공</text>
+    <text x="142" y="331">기본 화면으로 이동</text><text x="142" y="347" font-size="11">사용자 메인 / 관리자 대시보드</text>
+    <text x="510" y="339" font-size="11">원래 페이지·작업으로 복귀</text>
+    <text x="330" y="424">2차 인증</text><text x="330" y="440" font-size="11">휴대폰 인증번호 입력</text>
+  </g>
+
+  <g fill="#555" font-size="10">
+    <text x="366" y="192" text-anchor="start">가입 이력 없음</text>
+    <text x="271" y="232" text-anchor="end">가입 이력 있음</text>
+    <text x="251" y="307">복귀 작업 없음</text>
+    <text x="409" y="307">복귀 작업 있음</text>
+    <text x="336" y="383" text-anchor="start">2차 인증 사용 시</text>
+  </g>
+</svg>

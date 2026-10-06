@@ -72,7 +72,6 @@ pre { white-space: pre-wrap; border: 1px dashed #666; background: #eee; padding:
 /* Nuxt UI 본문 컴포넌트가 붙이는 아이콘·코드 색 숨김 */
 .iconify, pre + button, .group > button { display: none !important; }
 pre * { color: inherit !important; background: none !important; }
-pre.language-mermaid::before { content: "[흐름도 다이어그램 자리 — 아래는 원본 텍스트]"; display: block; margin-bottom: 8px; font-family: system-ui, sans-serif; font-weight: bold; }
 .title-row { display: flex; align-items: center; gap: 12px; }
 
 
@@ -82,3 +81,8 @@ pre.language-mermaid::before { content: "[흐름도 다이어그램 자리 — �
 .grade-filter .muted { margin-left: auto; }
 h2, h3 { scroll-margin-top: 72px; }
 td > button { white-space: nowrap; }
+
+/* 흐름도 */
+.flow { margin: 16px 0; padding: 16px; border: 1px solid #999; }
+.flow svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.flow summary { margin-top: 12px; font-size: 13px; cursor: pointer; }
