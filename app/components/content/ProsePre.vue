@@ -17,7 +17,7 @@ onMounted(async () => {
 
 <template>
   <figure v-if="language === 'mermaid'" class="flow">
-    <FlowFrame v-if="svg" :width="width">
+    <FlowFrame v-if="svg">
       <span role="img" aria-label="흐름도. 아래 '흐름 텍스트로 보기'에서 내용을 확인할 수 있습니다." class="flow-svg" v-html="svg" />
     </FlowFrame>
     <details>

@@ -130,13 +130,12 @@ img { max-width: 100%; height: auto; }
 /* {이름: 값} 변수 강조 (복사 시 { } 그대로) */
 .var { background: #e3e8f2; text-decoration: underline; text-decoration-color: #1f2a44; text-underline-offset: 3px; padding: 0 2px; border-radius: 2px; }
 
-/* 흐름도: 줄이지 않음(최소 글씨 12px). 좁으면 펼쳐 보기 */
+/* 흐름도: 줄이지 않음(최소 글씨 12px). 세로 540px까지만 보이고 길면 펼치기 */
 .flow-frame { display: block; margin: 12px 0; }
-.flow-scroll { display: block; overflow-x: auto; }
+.flow-scroll { display: block; overflow-x: auto; overflow-y: hidden; }
 .flow-img, .flow-svg svg { display: block; max-width: none; height: auto; }
 .flow-svg { display: block; }
-.flow-toggle { display: block; width: 100%; padding: 10px; font-size: 14px; text-align: center; }
-.flow-toggle[aria-expanded="true"] { margin-bottom: 8px; }
+.flow-toggle { display: block; width: 100%; margin-top: 0; padding: 10px; font-size: 14px; text-align: center; border-top-style: dashed; }
 
 /* 공통 푸터 */
 .foot { padding: 24px 16px; border-top: 1px solid #ddd; text-align: center; font-size: 14px; color: #666; }
