@@ -97,7 +97,7 @@ function onMove(e: PointerEvent) {
           <td>{{ r.doc ? 'v' + r.doc.meta.version : '준비 중' }}</td>
           <td>{{ stats[r.to]?.likes ?? 0 }}</td>
         </tr>
-        <tr v-if="!rows.length"><td colspan="4">검색 결과가 없습니다.</td></tr>
+        <tr v-if="!rows.length"><td colspan="4">{{ q ? '검색 결과가 없습니다.' : '준비 중입니다.' }}</td></tr>
       </tbody>
     </table>
   </section>

@@ -1,6 +1,6 @@
 ---
 id: policy-login
-category: UX 정책
+category: 기능 정책 / 계정
 title: 로그인
 description: 사용자가 서비스에 안전하고 빠르게 접근할 수 있도록 로그인 방식, 보조 기능, 로그인 후 연결, 보안 기준을 일관되게 정의합니다. (웹 데스크톱 기준)
 tags: [공통]

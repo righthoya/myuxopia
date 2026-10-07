@@ -6,7 +6,7 @@ tags: [공통]
 version: 0.1 (초안)
 updated: 2026-10-01
 source: Claude 초안 · 피그마 미반영
-related: [policy-login, policy-password, policy-privacy, pattern-signup]
+related: [policy-login, policy-password, policy-privacy]
 ---
 
 # 회원가입 정책
@@ -14,7 +14,7 @@ related: [policy-login, policy-password, policy-privacy, pattern-signup]
 ## 1. 목적
 신규 사용자가 최소한의 입력으로 계정을 만들고, 서비스는 필요한 동의·확인을 빠짐없이 받도록 가입 절차를 통일한다.
 - 범위: 진입 → 약관 동의 → 정보 입력 → 인증 → 완료
-- 다른 정책으로 넘김: 세션·로그인(→ 로그인·인증), 비밀번호 규칙(→ 비밀번호), 보관·파기·마스킹(→ 개인정보 처리), 화면 틀(→ 화면 패턴 > 회원가입), 탈퇴(2단계)
+- 다른 정책으로 넘김: 세션·로그인(→ 로그인), 비밀번호 규칙(→ 비밀번호), 보관·파기·마스킹(→ 개인정보 처리), 탈퇴(2단계)
 
 ## 2. 규칙 표
 | 단계 | 항목 | 내용 | 등급 | {변수} |
