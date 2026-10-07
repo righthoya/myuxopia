@@ -12,7 +12,7 @@ const version = ref(VERSIONS[0])
     <header class="top">
       <div class="brand">
         <NuxtLink to="/"><strong>UXopia</strong></NuxtLink>
-        <USelect v-model="version" :items="VERSIONS" size="xs" color="neutral" variant="outline" aria-label="버전 선택" class="version-select" />
+        <USelect v-model="version" :items="VERSIONS" size="xs" color="neutral" variant="none" aria-label="버전 선택" class="version-select bg-canvas-strong rounded-md" />
       </div>
       <nav aria-label="보조 메뉴">
         <a :href="FEEDBACK_URL" target="_blank" rel="noopener">피드백 (카톡 커뮤니티)</a>
