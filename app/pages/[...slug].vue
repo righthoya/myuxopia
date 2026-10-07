@@ -6,7 +6,6 @@ if (!info) throw createError({ statusCode: 404, statusMessage: '페이지를 찾
 
 const toc = computed(() => page.value?.body?.toc?.links ?? info.sections.map(s => ({ id: '', text: s })))
 const related = computed(() => ((page.value?.meta.related as string[]) ?? []).map(id => findPage(idToPath(id))).filter(Boolean))
-const siblings = allPages.filter(p => p.parent === info.parent && p.to !== info.to)
 
 // 링크 공유: 메신저 미리보기용 제목·설명 + 주소 복사
 useSeoMeta({
@@ -23,6 +22,28 @@ const goBack = () => (history.state?.back ? router.back() : router.push('/#list'
 const stat = ref({ views: 0, likes: 0 })
 const liked = ref(false)
 const send = (type: string) => $fetch('/api/stats', { method: 'POST', body: { path: info.to, type } })
+onMounted(() => {
+  const doc = document.querySelector('.doc')
+  if (!doc) return
+  const walker = document.createTreeWalker(doc, NodeFilter.SHOW_TEXT, {
+    acceptNode: n => /\{[^{}]+\}/.test(n.nodeValue ?? '') && !n.parentElement?.closest('th, pre, code, .var') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
+  })
+  const nodes: Text[] = []
+  while (walker.nextNode()) nodes.push(walker.currentNode as Text)
+  for (const node of nodes) {
+    const frag = document.createDocumentFragment()
+    for (const part of node.nodeValue!.split(/(\{[^{}]+\})/)) {
+      if (!part) continue
+      if (/^\{[^{}]+\}$/.test(part)) {
+        const span = document.createElement('span')
+        span.className = 'var'
+        span.textContent = part
+        frag.append(span)
+      } else frag.append(part)
+    }
+    node.replaceWith(frag)
+  }
+})
 onMounted(async () => {
   try { liked.value = localStorage.getItem('liked:' + info.to) === '1' } catch {}
   let seen = false
@@ -69,10 +90,6 @@ async function toggleLike() {
       <template v-if="related.length">
         <h2 class="label">관련 정책</h2>
         <ul class="rel"><li v-for="r in related" :key="r!.to"><NuxtLink :to="r!.to">{{ r!.title }}</NuxtLink><span class="muted">{{ r!.parent }}</span></li></ul>
-      </template>
-      <template v-if="siblings.length">
-        <h2 class="label">{{ info.parent }} 더 보기</h2>
-        <ul class="rel"><li v-for="r in siblings" :key="r.to"><NuxtLink :to="r.to">{{ r.title }}</NuxtLink><span class="muted">{{ r.group }}</span></li></ul>
       </template>
     </article>
 

@@ -2,14 +2,13 @@
 id: policy-signup
 category: 기능 정책 / 계정
 title: 회원가입
+description: 신규 사용자가 최소한의 입력으로 계정을 만들고, 서비스는 필요한 동의·확인을 빠짐없이 받도록 가입 절차(진입 → 약관 동의 → 정보 입력 → 인증 → 완료)를 통일합니다.
 tags: [공통]
 version: 0.1 (초안)
 updated: 2026-10-01
 source: Claude 초안 · 피그마 미반영
 related: [policy-login, policy-password, policy-privacy]
 ---
-
-# 회원가입 정책
 
 ## 1. 목적
 신규 사용자가 최소한의 입력으로 계정을 만들고, 서비스는 필요한 동의·확인을 빠짐없이 받도록 가입 절차를 통일한다.

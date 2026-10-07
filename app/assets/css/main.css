@@ -1,16 +1,22 @@
-/* 스케치 단계: 흑백 와이어프레임 (구조 참고: skills.sh). 디자인은 2단계에서 */
+/* Nuxt UI (UBadge 등). 브라우저 기본 스타일 초기화(preflight)는 빼서 기존 화면 유지 */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "@nuxt/ui";
+
+/* 구조 참고: skills.sh */
 * { box-sizing: border-box; }
-body { margin: 0; overflow-x: clip; font-family: system-ui, sans-serif; color: #111; background: #fff; line-height: 1.6; }
+body { margin: 0; overflow-x: clip; font-family: 'Pretendard GOV Variable', 'Pretendard GOV', system-ui, sans-serif; font-size: 16px; color: #111; background: #f5f4f2; line-height: 1.6; }
 a { color: inherit; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .muted { color: #666; font-size: 13px; }
 .label { font-size: 12px; font-weight: bold; letter-spacing: .06em; color: #444; margin: 32px 0 8px; padding-bottom: 6px; border-bottom: 1px solid #ccc; }
 code, pre { font-family: ui-monospace, monospace; }
 
-.top { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #fff; border-bottom: 1px solid #000; }
+.top { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #f5f4f2; border-bottom: 1px solid #000; }
 .top nav { display: flex; align-items: center; gap: 16px; font-size: 14px; }
 .top nav a { text-decoration: none; }
-.wrap { max-width: 1000px; margin: 0 auto; padding: 32px 24px 80px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
 
 /* 홈 */
 /* 히어로: 화면 전체 폭. .wrap 밖으로 꺼내기 */
@@ -124,3 +130,6 @@ img { max-width: 100%; height: auto; }
 }
 .back { display: inline-block; margin-bottom: 12px; padding: 4px 10px; font-size: 13px; }
 #list { scroll-margin-top: 64px; }
+
+/* {이름: 값} 변수 강조 (복사 시 { } 그대로) */
+.var { background: #e3e8f2; text-decoration: underline; text-decoration-color: #1f2a44; text-underline-offset: 3px; padding: 0 2px; border-radius: 2px; }

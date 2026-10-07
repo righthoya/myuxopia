@@ -1,6 +1,14 @@
 export default defineNuxtConfig({
   modules: ['@nuxt/ui', '@nuxt/content'],
   css: ['~/assets/css/main.css'],
+  // 다크 모드 없이 밝은 화면만 (CLAUDE.md 디자인 컨셉)
+  ui: { colorMode: false },
+  app: {
+    head: {
+      htmlAttrs: { lang: 'ko' },
+      link: [{ rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-gov-dynamic-subset.min.css' }]
+    }
+  },
   content: {
     experimental: { sqliteConnector: 'native' }
   },
