@@ -25,7 +25,7 @@ code, pre { font-family: ui-monospace, monospace; }
 .hero-title { font-size: 64px; line-height: 1.1; margin: 16px 0 8px; }
 .hero-sub { font-size: 28px; margin: 0; }
 .hero-desc { color: #444; line-height: 1.8; }
-.hero-cta { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 24px; }
+.hero-cta { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin-top: 24px; }
 .dialog { width: min(560px, 90vw); border: 1px solid #000; padding: 24px; }
 .dialog::backdrop { background: rgb(0 0 0 / .4); }
 .dialog h2 { margin-top: 0; font-size: 18px; }
@@ -61,7 +61,7 @@ h1 { margin: 8px 0 0; }
 .toc { position: sticky; top: 72px; font-size: 14px; }
 .toc ul { list-style: none; padding: 0; margin: 0; }
 
-button { font: inherit; font-size: 13px; padding: 2px 10px; border: 1px solid #000; background: #fff; cursor: pointer; }
+button { font: inherit; font-size: 13px; padding: 2px 10px; border: 1px solid #000; background: #fff; color: #111; cursor: pointer; }
 .ph { display: grid; place-items: center; min-height: 140px; margin: 8px 0; border: 1px dashed #666; background: #eee; color: #555; font-size: 14px; text-align: center; }
 
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
@@ -76,7 +76,7 @@ pre * { color: inherit !important; background: none !important; }
 
 
 /* 규칙 표 등급 필터 */
-.grade-filter { display: flex; align-items: center; gap: 16px; margin: 8px 0; padding: 8px 12px; border: 1px solid #999; font-size: 14px; }
+.grade-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 8px 0; padding: 8px 12px; border: 1px solid #999; font-size: 14px; }
 .grade-filter legend { font-weight: bold; padding: 0 4px; }
 .grade-filter .muted { margin-left: auto; }
 h2, h3 { scroll-margin-top: 72px; }
@@ -94,3 +94,34 @@ td > button { white-space: nowrap; }
 .share-box code span { color: #888; }
 .share-box button { display: grid; place-items: center; padding: 4px; border: 0; background: none; color: #bbb; font-size: 12px; }
 .share-box button:hover { color: #fff; }
+img { max-width: 100%; height: auto; }
+
+/* 모바일 (760px 이하): 1단 구조, 표는 행마다 세로 카드 */
+@media (max-width: 760px) {
+  .top { padding: 10px 16px; }
+  .top nav { gap: 12px; font-size: 13px; }
+  .wrap { padding: 24px 16px 64px; }
+  .hero-title { font-size: 44px; }
+  .hero-sub { font-size: 20px; }
+  .hero-desc { font-size: 15px; }
+  .share-box { min-width: 0; flex: 1 1 100%; }
+  .detail { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .detail aside { order: -1; margin-top: 16px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0; }
+  .facts dt { margin-top: 0; }
+  .facts dd { margin-right: 4px; }
+  .toc { position: static; margin-top: 16px; }
+  .list th:first-child, .list td:first-child { display: none; }
+
+  .doc table, .doc thead, .doc tbody, .doc tr, .doc td { display: block; width: 100%; }
+  .doc thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .doc tr { margin-bottom: 12px; border: 1px solid #999; }
+  .doc tr[hidden] { display: none; }
+  .doc td { border: 0; border-bottom: 1px solid #ddd; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 8px; }
+  .doc td:last-child { border-bottom: 0; }
+  .doc td::before { content: attr(data-label); font-weight: bold; color: #555; }
+  .doc td > button { justify-self: start; }
+  /* 흐름 그림은 글씨가 읽히는 크기를 유지하고, 그림 안에서만 옆으로 밀어 보기 */
+  .doc p:has(> img[src*="/flows/"]) { overflow-x: auto; }
+  .doc img[src*="/flows/"] { min-width: 600px; }
+}

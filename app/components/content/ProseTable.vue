@@ -17,7 +17,10 @@ onMounted(() => {
   col.grade = idx('등급')
   col.item = idx('항목')
   col.text = idx('내용')
-  if (col.grade < 0 || col.text < 0) return
+  // 모바일에서 표를 카드처럼 세로로 풀 때 칸 이름을 보여 주기 위한 라벨
+  const labels = () => [...head.cells].map(c => c.textContent?.trim() ?? '')
+  const label = () => { const l = labels(); for (const tr of rows()) [...tr.cells].forEach((td, i) => td.dataset.label = l[i]) }
+  if (col.grade < 0 || col.text < 0) return label()
 
   // 행별 복사 칸 추가 (MD 표는 정적이라 DOM에 직접 붙임)
   const th = document.createElement('th')
@@ -35,6 +38,7 @@ onMounted(() => {
     }
     tr.insertCell().appendChild(btn)
   }
+  label()
 })
 
 watchEffect(() => {
