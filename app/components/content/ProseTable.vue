@@ -64,6 +64,22 @@ onMounted(() => {
       render(vnode, tr.insertCell())
     }
   }
+  // '{변수}' 칸: 변수 이름을 본문 {변수}와 같은 강조로 표시 (예: 가입 방식 (선택지…))
+  if (col.vars >= 0) {
+    for (const tr of rows()) {
+      const td = tr.cells[col.vars]
+      const value = td?.textContent?.trim() ?? ''
+      if (!td || !value || value === '—') continue
+      td.replaceChildren(...value.split(/,\s*/).flatMap((part, i) => {
+        const m = part.match(/^(.+?)(\s*\(.*\))?$/)!
+        const span = document.createElement('span')
+        span.className = 'var'
+        span.textContent = m[1]!
+        return [...(i ? [', '] : []), span, ...(m[2] ? [m[2]] : [])]
+      }))
+    }
+  }
+
   // 모바일에서 표를 카드처럼 세로로 풀 때 칸 이름을 보여 주기 위한 라벨
   const l = labels()
   for (const tr of rows()) [...tr.cells].forEach((td, i) => td.dataset.label = l[i])

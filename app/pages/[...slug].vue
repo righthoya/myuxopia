@@ -15,7 +15,8 @@ useSeoMeta({
 const { copyLink } = useCopyLink()
 
 // 요약: MD 머리말 description의 **강조**를 굵게 표시
-const summary = computed(() => (page.value?.description ?? '').split(/\*\*(.+?)\*\*/).map((text, i) => ({ text, bold: i % 2 === 1 })))
+const summary = computed(() => (page.value?.description ?? '').split(/\*\*(.+?)\*\*/)
+  .flatMap((chunk, i) => chunk.split(/(\{[^{}]+\})/).filter(Boolean).map(text => ({ text, bold: i % 2 === 1, isVar: /^\{.+\}$/.test(text) }))))
 
 // 뒤로 가기: 사이트 안에서 들어왔으면 이전 화면(검색어·탭 유지), 공유 링크로 바로 왔으면 정책 목록으로
 const router = useRouter()
@@ -29,7 +30,7 @@ onMounted(() => {
   const doc = document.querySelector('.doc')
   if (!doc) return
   const walker = document.createTreeWalker(doc, NodeFilter.SHOW_TEXT, {
-    acceptNode: n => /\{[^{}]+\}/.test(n.nodeValue ?? '') && !n.parentElement?.closest('th, pre, code, .var') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
+    acceptNode: n => /\{[^{}]+\}/.test(n.nodeValue ?? '') && !n.parentElement?.closest('th, pre, .var, svg, style') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
   })
   const nodes: Text[] = []
   while (walker.nextNode()) nodes.push(walker.currentNode as Text)
@@ -80,7 +81,7 @@ async function toggleLike() {
       <h2 class="label">요약</h2>
       <p class="box summary">
         <template v-if="page?.description">
-          <template v-for="(part, i) in summary" :key="i"><strong v-if="part.bold">{{ part.text }}</strong><template v-else>{{ part.text }}</template></template>
+          <template v-for="(part, i) in summary" :key="i"><component :is="part.bold ? 'strong' : 'span'" :class="{ var: part.isVar }">{{ part.text }}</component></template>
         </template>
         <template v-else>준비 중입니다.</template>
       </p>
