@@ -25,7 +25,14 @@ onMounted(() => {
   col.item = idx('항목')
   col.text = idx('내용')
   col.vars = idx('{변수}')
-  paged.value = labels()[0] === '#' && rows().length > PAGE_SIZE
+  // 페이지마다 칸 폭이 바뀌지 않도록, 전체 행이 보일 때 잰 폭(%)으로 고정
+  if (labels()[0] === '#' && rows().length > PAGE_SIZE) {
+    const full = table.value!.getBoundingClientRect().width
+    const widths = [...head.cells].map(c => c.getBoundingClientRect().width / full * 100)
+    table.value!.style.tableLayout = 'fixed'
+    ;[...head.cells].forEach((c, i) => c.style.width = `${widths[i]!.toFixed(2)}%`)
+    paged.value = true
+  }
 
   if (col.grade >= 0 && col.text >= 0 && col.vars >= 0) {
     // 행별 복사 칸 추가 (MD 표는 정적이라 DOM에 직접 붙임)

@@ -172,3 +172,10 @@ img { max-width: 100%; height: auto; }
 
 /* 목록 표 페이지네이션 */
 .pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; margin: 12px 0 24px; }
+
+/* 헤더 로고 + 버전 선택 */
+.brand { display: flex; align-items: center; gap: 12px; }
+
+/* 히어로: 버전 버튼과 링크 복사 박스 높이 맞춤 */
+.hero-cta .btn-primary, .hero-cta .share-box { height: 44px; align-self: center; }
+.hero-cta .btn-primary { padding: 0 20px; font-size: 15px; }
