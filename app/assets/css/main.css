@@ -4,16 +4,46 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 @import "@nuxt/ui";
 
+/* ===== 디자인 토큰 (4-1단계). 색·모서리는 여기서만 정하고 나머지는 변수로 씀 ===== */
+@theme static {
+  /* 글꼴 */
+  --font-sans: 'Pretendard GOV Variable', 'Pretendard GOV', system-ui, sans-serif;
+  /* 포인트 색 'ink': 먹색에 가까운 남색 (app.config primary) */
+  --color-ink-50: #f3f5f9;
+  --color-ink-100: #e4e8f0;
+  --color-ink-200: #c8d0df;
+  --color-ink-300: #a0aec6;
+  --color-ink-400: #7286a8;
+  --color-ink-500: #52678b;
+  --color-ink-600: #3f5274;
+  --color-ink-700: #33425e;
+  --color-ink-800: #263147;
+  --color-ink-900: #1b2334;
+  --color-ink-950: #10151f;
+  /* 페이지 바탕 */
+  --color-canvas: #f5f4f2;
+}
+
+:root {
+  /* 포인트 색은 먹색 쪽 진한 단계 사용 */
+  --ui-primary: var(--ui-color-primary-800);
+  /* 모서리 기준 4px → 버튼·배지 6px(rounded-md), 카드 8px(rounded-lg) */
+  --ui-radius: 4px;
+  --radius-control: calc(var(--ui-radius) * 1.5);
+  --radius-card: calc(var(--ui-radius) * 2);
+  --radius-inline: calc(var(--ui-radius) * 0.5);
+}
+
 /* 구조 참고: skills.sh */
 * { box-sizing: border-box; }
-body { margin: 0; overflow-x: clip; font-family: 'Pretendard GOV Variable', 'Pretendard GOV', system-ui, sans-serif; font-size: 16px; color: #111; background: #f5f4f2; line-height: 1.6; }
+body { margin: 0; overflow-x: clip; font-family: var(--font-sans); font-size: 16px; color: var(--ui-text-highlighted); background: var(--color-canvas); line-height: 1.6; }
 a { color: inherit; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .muted { color: #666; font-size: 13px; }
 .label { font-size: 12px; font-weight: bold; letter-spacing: .06em; color: #444; margin: 32px 0 8px; padding-bottom: 6px; border-bottom: 1px solid #ccc; }
 code, pre { font-family: ui-monospace, monospace; }
 
-.top { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #f5f4f2; border-bottom: 1px solid #000; }
+.top { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: var(--color-canvas); border-bottom: 1px solid #000; }
 .top nav { display: flex; align-items: center; gap: 16px; font-size: 14px; }
 .top nav a { text-decoration: none; }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
@@ -32,15 +62,15 @@ code, pre { font-family: ui-monospace, monospace; }
 .hero-sub { font-size: 28px; margin: 0; }
 .hero-desc { color: #444; line-height: 1.8; }
 .hero-cta { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin-top: 24px; }
-.dialog { width: min(560px, 90vw); border: 1px solid #000; padding: 24px; }
+.dialog { width: min(560px, 90vw); border: 1px solid #000; padding: 24px;  border-radius: var(--radius-card);}
 .dialog::backdrop { background: rgb(0 0 0 / .4); }
 .dialog h2 { margin-top: 0; font-size: 18px; }
 .dialog-actions { display: flex; justify-content: flex-end; margin-top: 16px; }
-.btn, .btn-primary { font-size: 15px; padding: 10px 20px; border: 1px solid #000; text-decoration: none; font-size: 15px; }
+.btn, .btn-primary { font-size: 15px; padding: 10px 20px; border-radius: var(--radius-control); border: 1px solid #000; text-decoration: none; font-size: 15px; }
 .btn-primary { background: #111; color: #fff; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 8px 0; font-size: 13px; }
-.chips li { border: 1px solid #999; padding: 0 8px; }
-.cmd { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid #999; background: #f2f2f2; font-size: 14px; }
+.chips li { border: 1px solid #999; padding: 0 8px; border-radius: var(--radius-control); }
+.cmd { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid #999; background: #f2f2f2; font-size: 14px;  border-radius: var(--radius-card);}
 .search { width: 100%; padding: 8px; font: inherit; border: 0; border-bottom: 1px solid #000; background: transparent; }
 .list td:first-child { width: 40px; color: #666; }
 .list { border: 0; }
@@ -55,7 +85,7 @@ h1 { margin: 8px 0 0; }
 .head { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #ccc; margin: 32px 0 8px; }
 .head .label { border: 0; margin: 0; }
 .toggle button[aria-pressed="true"] { background: #111; color: #fff; }
-.box { padding: 16px; border: 1px solid #999; background: #f2f2f2; }
+.box { padding: 16px; border: 1px solid #999; background: #f2f2f2;  border-radius: var(--radius-card);}
 .doc h1 { display: none; }
 .rel { list-style: none; padding: 0; margin: 0; }
 .rel li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #ddd; }
@@ -64,8 +94,8 @@ h1 { margin: 8px 0 0; }
 .toc { position: sticky; top: 72px; font-size: 14px; }
 .toc ul { list-style: none; padding: 0; margin: 0; }
 
-button { font: inherit; font-size: 13px; padding: 2px 10px; border: 1px solid #000; background: #fff; color: #111; cursor: pointer; }
-.ph { display: grid; place-items: center; min-height: 140px; margin: 8px 0; border: 1px dashed #666; background: #eee; color: #555; font-size: 14px; text-align: center; }
+button { font: inherit; font-size: 13px; padding: 2px 10px; border-radius: var(--radius-control); border: 1px solid #000; background: #fff; color: #111; cursor: pointer; }
+.ph { display: grid; place-items: center; min-height: 140px; margin: 8px 0; border: 1px dashed #666; background: #eee; color: #555; font-size: 14px; text-align: center;  border-radius: var(--radius-card);}
 
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th, td { border: 1px solid #999; padding: 6px 8px; text-align: left; vertical-align: top; overflow-wrap: anywhere; word-break: keep-all; }
@@ -79,19 +109,19 @@ pre * { color: inherit !important; background: none !important; }
 
 
 /* 규칙 표 등급 필터 */
-.grade-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 8px 0; padding: 8px 12px; border: 1px solid #999; font-size: 14px; }
+.grade-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 8px 0; padding: 8px 12px; border: 1px solid #999; font-size: 14px;  border-radius: var(--radius-card);}
 .grade-filter legend { font-weight: bold; padding: 0 4px; }
 .grade-filter .muted { margin-left: auto; }
 h2, h3 { scroll-margin-top: 72px; }
 td > button { white-space: nowrap; }
 
 /* 흐름도 */
-.flow { margin: 16px 0; padding: 16px; border: 1px solid #999; }
+.flow { margin: 16px 0; padding: 16px; border: 1px solid #999;  border-radius: var(--radius-card);}
 .flow summary { margin-top: 12px; font-size: 13px; cursor: pointer; }
 .like[aria-pressed="true"] { background: #111; color: #fff; }
 
 /* 히어로 링크 복사 박스 */
-.share-box { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-width: 260px; padding: 8px 12px 8px 16px; align-self: stretch; background: #111; color: #eee; border-radius: 8px; }
+.share-box { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-width: 260px; padding: 8px 12px 8px 16px; align-self: stretch; background: #111; color: #eee; border-radius: var(--radius-control); }
 .share-box code { font-size: 15px; overflow-wrap: anywhere; }
 .share-box code .share-tag { margin-right: 10px; font-size: 11px; letter-spacing: .04em; color: #888; }
 .share-box button { display: grid; place-items: center; padding: 4px; border: 0; background: none; color: #bbb; font-size: 12px; }
@@ -128,7 +158,7 @@ img { max-width: 100%; height: auto; }
 #list { scroll-margin-top: 64px; }
 
 /* {이름: 값} 변수 강조 (복사 시 { } 그대로) */
-.var { background: #e3e8f2; text-decoration: underline; text-decoration-color: #1f2a44; text-underline-offset: 3px; padding: 0 2px; border-radius: 2px; }
+.var { background: var(--ui-color-primary-100); text-decoration: underline; text-decoration-color: var(--ui-color-primary-800); text-underline-offset: 3px; padding: 0 2px; border-radius: var(--radius-inline); }
 
 /* 흐름도: 줄이지 않음(최소 글씨 12px). 세로 540px까지만 보이고 길면 펼치기 */
 .flow-frame { display: block; margin: 12px 0; }

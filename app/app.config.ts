@@ -1,6 +1,7 @@
 export default defineAppConfig({
   ui: {
-    // 포인트 색: 먹색에 가까운 남색 계열(slate), 중립색: 따뜻한 stone
-    colors: { primary: 'slate', neutral: 'stone' }
+    // 색 값은 main.css @theme의 CSS 변수(--color-ink-*, stone)에서 가져옴
+    // primary: 먹색에 가까운 남색 'ink' / neutral: 따뜻한 회색 'stone'
+    colors: { primary: 'ink', neutral: 'stone' }
   }
 })
