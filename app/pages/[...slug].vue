@@ -40,7 +40,7 @@ async function toggleLike() {
   <button type="button" class="back" @click="goBack">← 목록으로</button>
   <nav aria-label="현재 위치" class="crumb">
     <NuxtLink to="/">UXopia</NuxtLink>
-    <template v-if="info.parent"> / <NuxtLink :to="{ path: '/', query: { tab: info.parent } }">{{ info.parent }}</NuxtLink></template>
+    <template v-if="info.parent"> / <NuxtLink to="/#list">{{ info.parent }}</NuxtLink></template>
     <template v-if="info.group"> / {{ info.group }}</template>
     / <span aria-current="page">{{ info.title }}</span>
   </nav>

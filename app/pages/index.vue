@@ -1,8 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
 const { data: docs } = await useAsyncData('docs', () => queryCollection('content').all())
-const tabs = ['전체', ...menu.map(m => m.title)]
-const tab = computed(() => (route.query.tab as string) || '전체')
 const router = useRouter()
 // 검색어도 주소(?q=)에 남겨, 검색 결과 화면을 그대로 공유할 수 있게
 const q = computed({
@@ -11,7 +9,7 @@ const q = computed({
 })
 useSeoMeta({ title: 'UXopia', description: '프로덕트 디자이너를 위한 UX 정책서. 정책과 팝업 문구를 읽고 복사해 씁니다.' })
 const rows = computed(() => allPages
-  .filter(p => (tab.value === '전체' || p.parent === tab.value) && p.title.includes(q.value.trim()))
+  .filter(p => p.title.includes(q.value.trim()))
   .map(p => ({ ...p, doc: docs.value?.find(d => d.path === p.to) })))
 const { copied, copyLink } = useCopyLink()
 // 상세에서 '목록으로'(/#list)로 오면 정책 목록 위치로 이동
@@ -87,9 +85,6 @@ function onMove(e: PointerEvent) {
     <h2 class="label">정책 목록</h2>
     <label for="q" class="sr">정책 검색</label>
     <input id="q" v-model="q" type="search" class="search" placeholder="정책·팝업 검색">
-    <nav aria-label="분류" class="tabs">
-      <NuxtLink v-for="t in tabs" :key="t" :to="{ query: { ...route.query, tab: t === '전체' ? undefined : t } }" :aria-current="t === tab ? 'page' : undefined">{{ t }}</NuxtLink>
-    </nav>
     <table class="list">
       <thead><tr><th>#</th><th>이름</th><th>상태</th><th>좋아요</th></tr></thead>
       <tbody>
@@ -99,7 +94,7 @@ function onMove(e: PointerEvent) {
           <td>{{ r.doc ? 'v' + r.doc.meta.version : '준비 중' }}</td>
           <td>{{ stats[r.to]?.likes ?? 0 }}</td>
         </tr>
-        <tr v-if="!rows.length"><td colspan="4">{{ q ? '검색 결과가 없습니다.' : '준비 중입니다.' }}</td></tr>
+        <tr v-if="!rows.length"><td colspan="4">검색 결과가 없습니다.</td></tr>
       </tbody>
     </table>
   </section>
