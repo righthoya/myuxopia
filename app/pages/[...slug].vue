@@ -12,7 +12,7 @@ useSeoMeta({
   title: () => `${page.value?.title ?? info.title} · UXopia`,
   description: () => page.value?.description || `${info.parent} · ${info.title}`
 })
-const { copied, copyLink } = useCopyLink()
+const { copyLink } = useCopyLink()
 
 // 뒤로 가기: 사이트 안에서 들어왔으면 이전 화면(검색어·탭 유지), 공유 링크로 바로 왔으면 정책 목록으로
 const router = useRouter()
@@ -69,7 +69,6 @@ async function toggleLike() {
     <h1>{{ page?.title ?? info.title }}.</h1>
     <UButton size="sm" color="primary" :variant="liked ? 'solid' : 'outline'" icon="i-lucide-heart" :label="`좋아요 ${stat.likes}`" :aria-pressed="liked" @click="toggleLike" />
     <UButton size="sm" color="neutral" variant="outline" icon="i-lucide-link" label="링크 복사" @click="copyLink" />
-    <span aria-live="polite" class="muted">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
   </div>
   <ul class="chips"><li v-for="t in (page?.meta.tags as string[]) ?? ['공통']" :key="t">{{ t }}</li></ul>
 

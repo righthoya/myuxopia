@@ -16,9 +16,6 @@ const { copied, copyLink } = useCopyLink()
 onMounted(() => { if (route.hash === '#list') document.getElementById('list')?.scrollIntoView() })
 const siteUrl = useRequestURL().host
 const { data: stats } = await useFetch<Stats>('/api/stats', { default: () => ({}) })
-// 버전 수정 이력 팝업 (브라우저 기본 dialog: ESC로 닫힘, 닫히면 포커스 복귀)
-const versionDialog = ref<HTMLDialogElement>()
-const versions = computed(() => [...(docs.value ?? [])].sort((a, b) => String(b.meta.updated).localeCompare(String(a.meta.updated))))
 // 히어로 배경 글씨 (hackerrank.com 방식: 흐린 글씨 + 포인터 주변만 진하게). 내용은 팝업 문구
 const bgText = [
   '곧 자동 로그아웃됩니다', '작성을 그만두시겠습니까?', '접근 권한이 없습니다', '일시적인 오류가 발생했습니다',
@@ -50,37 +47,21 @@ function onMove(e: PointerEvent) {
           정책서 쓰는 시간은 줄이고<br>
           더 좋은 경험을 고민하는 데 쓰세요.
         </p>
-        <!-- 버전 버튼 옆 링크 복사: 명령줄 모양 박스 (skills.sh 'TRY IT NOW' 참고) -->
+        <!-- 링크 복사: 명령줄 모양 박스 (skills.sh 'TRY IT NOW' 참고) -->
         <div class="hero-cta">
-          <UButton class="btn-primary" color="primary" size="lg" label="v1.0 버전" @click="versionDialog?.showModal()" />
           <div class="share-box">
             <code><span class="share-tag">link</span>{{ siteUrl }}</code>
             <UButton
               color="neutral" variant="ghost" class="share-copy"
               :icon="copied ? 'i-lucide-check' : 'i-lucide-link'"
-              :aria-label="copied ? '링크를 복사했습니다' : '링크 복사'" @click="copyLink"
+              aria-label="링크 복사" @click="copyLink"
             />
           </div>
-          <span aria-live="polite" class="sr">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
         </div>
       </div>
     </div>
   </section>
 
-  <dialog ref="versionDialog" aria-labelledby="ver-title" class="dialog">
-    <h2 id="ver-title">버전 수정 이력</h2>
-    <table>
-      <thead><tr><th>문서</th><th>버전</th><th>최종 수정일</th></tr></thead>
-      <tbody>
-        <tr v-for="d in versions" :key="d.path">
-          <td><NuxtLink :to="d.path">{{ d.title }}</NuxtLink></td>
-          <td>{{ d.meta.version }}</td>
-          <td>{{ d.meta.updated }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <form method="dialog" class="dialog-actions"><UButton type="submit" color="primary" label="닫기" /></form>
-  </dialog>
 
   <section id="list">
     <h2 class="label">정책 목록</h2>
