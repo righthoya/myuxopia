@@ -44,7 +44,7 @@ related: [policy-login, policy-password, policy-privacy]
 
 ## 3. 흐름
 ```mermaid
-flowchart LR
+flowchart TB
   A[로그인 화면 회원가입] --> B{가입 방식}
   B -->|이메일| C[약관 동의] --> D[정보 입력] --> E[인증] --> F[가입 완료] --> G[완료 후 이동]
   B -->|SNS| S[SNS 인증] --> S1{같은 이메일 계정?}

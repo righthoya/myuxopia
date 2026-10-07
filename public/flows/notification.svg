@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" width="768" height="456" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">
   <!-- 알림 발송·확인 흐름 (피그마 'UX 표준 정책' 58:170 기준, 흑백). 레인: 발생 · 발송 · 확인 -->
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111"/></marker>
