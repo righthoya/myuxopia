@@ -10,9 +10,12 @@ const related = computed(() => ((page.value?.meta.related as string[]) ?? []).ma
 // 링크 공유: 메신저 미리보기용 제목·설명 + 주소 복사
 useSeoMeta({
   title: () => `${page.value?.title ?? info.title} · UXopia`,
-  description: () => page.value?.description || `${info.parent} · ${info.title}`
+  description: () => page.value?.description?.replaceAll('**', '') || `${info.parent} · ${info.title}`
 })
 const { copyLink } = useCopyLink()
+
+// 요약: MD 머리말 description의 **강조**를 굵게 표시
+const summary = computed(() => (page.value?.description ?? '').split(/\*\*(.+?)\*\*/).map((text, i) => ({ text, bold: i % 2 === 1 })))
 
 // 뒤로 가기: 사이트 안에서 들어왔으면 이전 화면(검색어·탭 유지), 공유 링크로 바로 왔으면 정책 목록으로
 const router = useRouter()
@@ -75,7 +78,12 @@ async function toggleLike() {
   <div class="detail">
     <article>
       <h2 class="label">요약</h2>
-      <div class="box">{{ page?.description || (page ? '[요약 자리: MD 머리말 description]' : '준비 중입니다.') }}</div>
+      <p class="box summary">
+        <template v-if="page?.description">
+          <template v-for="(part, i) in summary" :key="i"><strong v-if="part.bold">{{ part.text }}</strong><template v-else>{{ part.text }}</template></template>
+        </template>
+        <template v-else>준비 중입니다.</template>
+      </p>
 
       <h2 class="label">정책 본문</h2>
       <div v-if="page" class="doc"><ContentRenderer :value="page" /></div>

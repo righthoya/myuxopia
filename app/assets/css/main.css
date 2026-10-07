@@ -185,3 +185,10 @@ img { max-width: 100%; height: auto; }
 .flow-toggle { margin-top: 0; }
 .share-box .share-copy { color: #bbb; }
 .share-box .share-copy:hover { color: #fff; background: transparent; }
+
+/* 상세 요약: 바탕(canvas)과 구분되는 흰 카드 */
+.box.summary { margin: 0; background: var(--ui-bg); border: 1px solid var(--ui-border-accented); }
+.box.summary strong { font-weight: 700; color: var(--ui-text-highlighted); }
+
+/* 그린 흐름도도 회원가입 흐름도와 같은 테두리 */
+.flow-boxed { padding: 16px; border: 1px solid #999; border-radius: var(--radius-card); }

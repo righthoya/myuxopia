@@ -4,7 +4,7 @@ const props = defineProps<{ src?: string, alt?: string, width?: string | number,
 </script>
 
 <template>
-  <FlowFrame v-if="src?.startsWith('/flows/')">
+  <FlowFrame v-if="src?.startsWith('/flows/')" class="flow-boxed">
     <img :src="src" :alt="alt" class="flow-img">
   </FlowFrame>
   <img v-else :src="src" :alt="alt" :width="width" :height="height" :class="props.class">

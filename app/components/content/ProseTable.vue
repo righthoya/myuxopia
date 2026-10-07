@@ -28,6 +28,21 @@ onMounted(() => {
   col.item = idx('항목')
   col.text = idx('내용')
   col.vars = idx('{변수}')
+  // 팝업 목록 표('#'·'제목'·'본문' 칸): 행마다 제목·본문·버튼 문구를 한 번에 복사
+  const [code, title, body, btns, sit] = ['#', '제목', '본문', '버튼', '상황'].map(idx)
+  if (code === 0 && title >= 0 && body >= 0) {
+    const th = document.createElement('th')
+    th.textContent = '복사'
+    head.appendChild(th)
+    for (const tr of rows()) {
+      const v = (i: number) => (i >= 0 && cellText(tr, i) !== '—' ? cellText(tr, i) : '')
+      const text = [v(title), v(body), v(btns) && `[${v(btns)}]`].filter(Boolean).join('\n')
+      const vnode = h(RowCopy, { text, label: `${v(code)} ${v(sit)}` })
+      vnode.appContext = appContext ?? null
+      render(vnode, tr.insertCell())
+    }
+  }
+
   // 페이지마다 칸 폭이 바뀌지 않도록, 전체 행이 보일 때 잰 폭(%)으로 고정
   if (labels()[0] === '#' && rows().length > PAGE_SIZE) {
     const full = table.value!.getBoundingClientRect().width
