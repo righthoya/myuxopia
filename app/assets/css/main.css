@@ -125,3 +125,5 @@ img { max-width: 100%; height: auto; }
   .doc p:has(> img[src*="/flows/"]) { overflow-x: auto; }
   .doc img[src*="/flows/"] { min-width: 600px; }
 }
+.back { display: inline-block; margin-bottom: 12px; padding: 4px 10px; font-size: 13px; }
+#list { scroll-margin-top: 64px; }

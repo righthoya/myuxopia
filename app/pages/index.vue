@@ -14,6 +14,8 @@ const rows = computed(() => allPages
   .filter(p => (tab.value === '전체' || p.parent === tab.value) && p.title.includes(q.value.trim()))
   .map(p => ({ ...p, doc: docs.value?.find(d => d.path === p.to) })))
 const { copied, copyLink } = useCopyLink()
+// 상세에서 '목록으로'(/#list)로 오면 정책 목록 위치로 이동
+onMounted(() => { if (route.hash === '#list') document.getElementById('list')?.scrollIntoView() })
 const siteUrl = useRequestURL().host
 const { data: stats } = await useFetch<Stats>('/api/stats', { default: () => ({}) })
 // 버전 수정 이력 팝업 (브라우저 기본 dialog: ESC로 닫힘, 닫히면 포커스 복귀)

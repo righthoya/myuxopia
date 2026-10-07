@@ -15,6 +15,10 @@ useSeoMeta({
 })
 const { copied, copyLink } = useCopyLink()
 
+// 뒤로 가기: 사이트 안에서 들어왔으면 이전 화면(검색어·탭 유지), 공유 링크로 바로 왔으면 정책 목록으로
+const router = useRouter()
+const goBack = () => (history.state?.back ? router.back() : router.push('/#list'))
+
 // 조회수·좋아요. 조회는 브라우저 탭당 1회, 좋아요 여부는 이 브라우저에 기억
 const stat = ref({ views: 0, likes: 0 })
 const liked = ref(false)
@@ -33,6 +37,7 @@ async function toggleLike() {
 </script>
 
 <template>
+  <button type="button" class="back" @click="goBack">← 목록으로</button>
   <nav aria-label="현재 위치" class="crumb">
     <NuxtLink to="/">UXopia</NuxtLink>
     <template v-if="info.parent"> / <NuxtLink :to="{ path: '/', query: { tab: info.parent } }">{{ info.parent }}</NuxtLink></template>
