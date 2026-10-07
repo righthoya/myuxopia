@@ -23,8 +23,9 @@ onBeforeUnmount(() => ro?.disconnect())
     <span ref="inner" class="flow-scroll" :style="tall && !open ? { maxHeight: MAX + 'px' } : undefined">
       <slot />
     </span>
-    <button v-if="tall" type="button" class="flow-toggle" :aria-expanded="open" @click="open = !open">
-      {{ open ? '접기' : '펼치기' }}
-    </button>
+    <UButton
+      v-if="tall" block color="neutral" variant="outline" class="flow-toggle"
+      :label="open ? '접기' : '펼치기'" :aria-expanded="open" @click="open = !open"
+    />
   </span>
 </template>

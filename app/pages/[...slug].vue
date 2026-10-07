@@ -58,7 +58,7 @@ async function toggleLike() {
 </script>
 
 <template>
-  <button type="button" class="back" @click="goBack">← 목록으로</button>
+  <UButton class="back" size="sm" color="neutral" variant="ghost" icon="i-lucide-arrow-left" label="목록으로" @click="goBack" />
   <nav aria-label="현재 위치" class="crumb">
     <NuxtLink to="/">UXopia</NuxtLink>
     <template v-if="info.parent"> / <NuxtLink to="/#list">{{ info.parent }}</NuxtLink></template>
@@ -67,8 +67,8 @@ async function toggleLike() {
   </nav>
   <div class="title-row">
     <h1>{{ page?.title ?? info.title }}.</h1>
-    <button type="button" :aria-pressed="liked" class="like" @click="toggleLike">좋아요 {{ stat.likes }}</button>
-    <button type="button" @click="copyLink">링크 복사</button>
+    <UButton size="sm" color="primary" :variant="liked ? 'solid' : 'outline'" icon="i-lucide-heart" :label="`좋아요 ${stat.likes}`" :aria-pressed="liked" @click="toggleLike" />
+    <UButton size="sm" color="neutral" variant="outline" icon="i-lucide-link" label="링크 복사" @click="copyLink" />
     <span aria-live="polite" class="muted">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
   </div>
   <ul class="chips"><li v-for="t in (page?.meta.tags as string[]) ?? ['공통']" :key="t">{{ t }}</li></ul>

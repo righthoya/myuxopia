@@ -73,8 +73,6 @@ code, pre { font-family: ui-monospace, monospace; }
 .dialog::backdrop { background: rgb(0 0 0 / .4); }
 .dialog h2 { margin-top: 0; font-size: 18px; }
 .dialog-actions { display: flex; justify-content: flex-end; margin-top: 16px; }
-.btn, .btn-primary { font-size: 15px; padding: 10px 20px; border-radius: var(--radius-control); border: 1px solid #000; text-decoration: none; font-size: 15px; }
-.btn-primary { background: #111; color: #fff; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 8px 0; font-size: 13px; }
 .chips li { border: 1px solid #999; padding: 0 8px; border-radius: var(--radius-control); }
 .cmd { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid #999; background: #f2f2f2; font-size: 14px;  border-radius: var(--radius-card);}
@@ -125,14 +123,11 @@ td > button { white-space: nowrap; }
 /* 흐름도 */
 .flow { margin: 16px 0; padding: 16px; border: 1px solid #999;  border-radius: var(--radius-card);}
 .flow summary { margin-top: 12px; font-size: 13px; cursor: pointer; }
-.like[aria-pressed="true"] { background: #111; color: #fff; }
 
 /* 히어로 링크 복사 박스 */
 .share-box { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-width: 260px; padding: 8px 12px 8px 16px; align-self: stretch; background: #111; color: #eee; border-radius: var(--radius-control); }
 .share-box code { font-size: 15px; overflow-wrap: anywhere; }
 .share-box code .share-tag { margin-right: 10px; font-size: 11px; letter-spacing: .04em; color: #888; }
-.share-box button { display: grid; place-items: center; padding: 4px; border: 0; background: none; color: #bbb; font-size: 12px; }
-.share-box button:hover { color: #fff; }
 img { max-width: 100%; height: auto; }
 
 /* 모바일 (760px 이하): 1단 구조, 표는 행마다 세로 카드 */
@@ -161,7 +156,6 @@ img { max-width: 100%; height: auto; }
   .doc td::before { content: attr(data-label); font-weight: bold; color: #555; }
   .doc td > button { justify-self: start; }
 }
-.back { display: inline-block; margin-bottom: 12px; padding: 4px 10px; font-size: 13px; }
 #list { scroll-margin-top: 64px; }
 
 /* {이름: 값} 변수 강조 (복사 시 { } 그대로) */
@@ -172,7 +166,6 @@ img { max-width: 100%; height: auto; }
 .flow-scroll { display: block; overflow-x: auto; overflow-y: hidden; }
 .flow-img, .flow-svg svg { display: block; max-width: none; height: auto; }
 .flow-svg { display: block; }
-.flow-toggle { display: block; width: 100%; margin-top: 0; padding: 10px; font-size: 14px; text-align: center; border-top-style: dashed; }
 
 /* 공통 푸터 */
 .foot { padding: 24px 16px; border-top: 1px solid #ddd; text-align: center; font-size: 14px; color: #666; }
@@ -186,4 +179,9 @@ img { max-width: 100%; height: auto; }
 
 /* 히어로: 버전 버튼과 링크 복사 박스 높이 맞춤 */
 .hero-cta .btn-primary, .hero-cta .share-box { height: 44px; align-self: center; }
-.hero-cta .btn-primary { padding: 0 20px; font-size: 15px; }
+
+/* UButton 보정 */
+.back { margin-bottom: 12px; }
+.flow-toggle { margin-top: 0; }
+.share-box .share-copy { color: #bbb; }
+.share-box .share-copy:hover { color: #fff; background: transparent; }

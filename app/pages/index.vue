@@ -52,13 +52,14 @@ function onMove(e: PointerEvent) {
         </p>
         <!-- 버전 버튼 옆 링크 복사: 명령줄 모양 박스 (skills.sh 'TRY IT NOW' 참고) -->
         <div class="hero-cta">
-          <button type="button" class="btn-primary" @click="versionDialog?.showModal()">v1.0 버전</button>
+          <UButton class="btn-primary" color="primary" size="lg" label="v1.0 버전" @click="versionDialog?.showModal()" />
           <div class="share-box">
             <code><span class="share-tag">link</span>{{ siteUrl }}</code>
-            <button type="button" aria-label="링크 복사" :title="copied ? '복사했습니다' : '링크 복사'" @click="copyLink">
-              <svg v-if="!copied" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" /></svg>
-              <span v-else>복사됨</span>
-            </button>
+            <UButton
+              color="neutral" variant="ghost" class="share-copy"
+              :icon="copied ? 'i-lucide-check' : 'i-lucide-link'"
+              :aria-label="copied ? '링크를 복사했습니다' : '링크 복사'" @click="copyLink"
+            />
           </div>
           <span aria-live="polite" class="sr">{{ copied ? '링크를 복사했습니다.' : '' }}</span>
         </div>
@@ -78,7 +79,7 @@ function onMove(e: PointerEvent) {
         </tr>
       </tbody>
     </table>
-    <form method="dialog" class="dialog-actions"><button>닫기</button></form>
+    <form method="dialog" class="dialog-actions"><UButton type="submit" color="primary" label="닫기" /></form>
   </dialog>
 
   <section id="list">

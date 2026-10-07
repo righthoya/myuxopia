@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { h, render } from 'vue'
+import RowCopy from '~/components/RowCopy.vue'
 // MD 표
 // - '등급' 칸이 있으면: 필수·권장·선택 체크박스로 행 노출 관리
 // - 규칙 표('내용' + '{변수}' 칸): 행마다 [복사] 버튼. 복사할 때 {변수}는 그대로
@@ -15,6 +17,7 @@ const total = ref(0)
 
 const cellText = (tr: HTMLTableRowElement, i: number) => tr.cells[i]?.textContent?.trim() ?? ''
 const rows = () => [...(table.value?.tBodies[0]?.rows ?? [])]
+const appContext = getCurrentInstance()?.appContext
 
 onMounted(() => {
   const head = table.value?.tHead?.rows[0]
@@ -40,16 +43,10 @@ onMounted(() => {
     th.textContent = '복사'
     head.appendChild(th)
     for (const tr of rows()) {
-      const btn = document.createElement('button')
-      btn.type = 'button'
-      btn.textContent = '복사'
-      btn.setAttribute('aria-label', `${cellText(tr, col.item)} 내용 복사`)
-      btn.onclick = async () => {
-        await navigator.clipboard.writeText(cellText(tr, col.text))
-        btn.textContent = '복사됨'
-        setTimeout(() => (btn.textContent = '복사'), 2000)
-      }
-      tr.insertCell().appendChild(btn)
+      // MD 표는 정적이라 칸을 직접 붙이고, 그 안에 UButton(RowCopy)을 렌더
+      const vnode = h(RowCopy, { text: cellText(tr, col.text), label: cellText(tr, col.item) })
+      vnode.appContext = appContext ?? null
+      render(vnode, tr.insertCell())
     }
   }
   // 모바일에서 표를 카드처럼 세로로 풀 때 칸 이름을 보여 주기 위한 라벨

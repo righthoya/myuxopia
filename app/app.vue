@@ -15,8 +15,8 @@ const version = ref(VERSIONS[0])
         <USelect v-model="version" :items="VERSIONS" size="xs" color="neutral" variant="none" aria-label="버전 선택" class="version-select bg-canvas-strong rounded-md" />
       </div>
       <nav aria-label="보조 메뉴">
-        <a :href="FEEDBACK_URL" target="_blank" rel="noopener">피드백 (카톡 커뮤니티)</a>
-        <a :href="SUPPORT_URL" target="_blank" rel="noopener">커피값 후원</a>
+        <UButton :to="FEEDBACK_URL" target="_blank" color="neutral" variant="link" trailing-icon="i-lucide-external-link" label="피드백 (카톡 커뮤니티)" aria-label="피드백 (카톡 커뮤니티), 새 창으로 열림" />
+        <UButton :to="SUPPORT_URL" target="_blank" color="neutral" variant="link" trailing-icon="i-lucide-external-link" label="커피값 후원" aria-label="커피값 후원, 새 창으로 열림" />
       </nav>
     </header>
     <main class="wrap"><NuxtPage /></main>
