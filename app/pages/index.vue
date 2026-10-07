@@ -54,7 +54,7 @@ function onMove(e: PointerEvent) {
         <div class="hero-cta">
           <button type="button" class="btn-primary" @click="versionDialog?.showModal()">v1.0 버전</button>
           <div class="share-box">
-            <code><span aria-hidden="true">$ </span>{{ siteUrl }}</code>
+            <code><span class="share-tag">link</span>{{ siteUrl }}</code>
             <button type="button" aria-label="링크 복사" :title="copied ? '복사했습니다' : '링크 복사'" @click="copyLink">
               <svg v-if="!copied" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" /></svg>
               <span v-else>복사됨</span>
@@ -84,17 +84,18 @@ function onMove(e: PointerEvent) {
   <section id="list">
     <h2 class="label">정책 목록</h2>
     <label for="q" class="sr">정책 검색</label>
-    <input id="q" v-model="q" type="search" class="search" placeholder="정책·팝업 검색">
+    <input id="q" v-model="q" type="search" class="search" placeholder="정책 검색">
     <table class="list">
-      <thead><tr><th>#</th><th>이름</th><th>상태</th><th>좋아요</th></tr></thead>
+      <thead><tr><th>#</th><th>이름</th><th>분류</th><th>상태</th><th>좋아요</th></tr></thead>
       <tbody>
         <tr v-for="(r, i) in rows" :key="r.to">
           <td>{{ i + 1 }}</td>
-          <td><NuxtLink :to="r.to"><strong>{{ r.title }}</strong></NuxtLink> <span class="muted">{{ r.parent }}{{ r.group && ' / ' + r.group }}</span></td>
+          <td><NuxtLink :to="r.to"><strong>{{ r.title }}</strong></NuxtLink></td>
+          <td class="muted">{{ r.parent }}{{ r.group && ' / ' + r.group }}</td>
           <td>{{ r.doc ? 'v' + r.doc.meta.version : '준비 중' }}</td>
           <td>{{ stats[r.to]?.likes ?? 0 }}</td>
         </tr>
-        <tr v-if="!rows.length"><td colspan="4">검색 결과가 없습니다.</td></tr>
+        <tr v-if="!rows.length"><td colspan="5">검색 결과가 없습니다.</td></tr>
       </tbody>
     </table>
   </section>

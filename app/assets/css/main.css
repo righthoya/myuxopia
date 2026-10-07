@@ -41,7 +41,7 @@ code, pre { font-family: ui-monospace, monospace; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 8px 0; font-size: 13px; }
 .chips li { border: 1px solid #999; padding: 0 8px; }
 .cmd { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid #999; background: #f2f2f2; font-size: 14px; }
-.search { width: 100%; padding: 8px; font: inherit; border: 0; border-bottom: 1px solid #000; }
+.search { width: 100%; padding: 8px; font: inherit; border: 0; border-bottom: 1px solid #000; background: transparent; }
 .list td:first-child { width: 40px; color: #666; }
 .list { border: 0; }
 .list th, .list td { border: 0; border-bottom: 1px solid #ddd; background: none; }
@@ -94,7 +94,7 @@ td > button { white-space: nowrap; }
 /* 히어로 링크 복사 박스 */
 .share-box { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-width: 260px; padding: 8px 12px 8px 16px; align-self: stretch; background: #111; color: #eee; border-radius: 8px; }
 .share-box code { font-size: 15px; overflow-wrap: anywhere; }
-.share-box code span { color: #888; }
+.share-box code .share-tag { margin-right: 10px; font-size: 11px; letter-spacing: .04em; color: #888; }
 .share-box button { display: grid; place-items: center; padding: 4px; border: 0; background: none; color: #bbb; font-size: 12px; }
 .share-box button:hover { color: #fff; }
 img { max-width: 100%; height: auto; }
