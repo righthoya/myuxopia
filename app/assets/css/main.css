@@ -132,7 +132,8 @@ img { max-width: 100%; height: auto; }
 
 /* 모바일 (760px 이하): 1단 구조, 표는 행마다 세로 카드 */
 @media (max-width: 760px) {
-  .top { padding: 10px 16px; }
+  .top { flex-wrap: wrap; gap: 4px 12px; padding: 10px 16px; }
+  h2, h3, #list { scroll-margin-top: 96px; }
   .top nav { gap: 12px; font-size: 13px; }
   .wrap { padding: 24px 16px 64px; }
   .hero-title { font-size: 44px; }
@@ -151,6 +152,7 @@ img { max-width: 100%; height: auto; }
   .doc thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .doc tr { margin-bottom: 12px; border: 1px solid #999; }
   .doc tr[hidden] { display: none; }
+  .doc tr.off-page { display: none; }
   .doc td { border: 0; border-bottom: 1px solid #ddd; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 8px; }
   .doc td:last-child { border-bottom: 0; }
   .doc td::before { content: attr(data-label); font-weight: bold; color: #555; }
@@ -170,7 +172,8 @@ img { max-width: 100%; height: auto; }
 /* 공통 푸터 */
 .foot { padding: 24px 16px; border-top: 1px solid #ddd; text-align: center; font-size: 14px; color: #666; }
 
-/* 목록 표 페이지네이션 */
+/* 목록·규칙 표 페이지네이션: 다른 페이지 행은 접어 두고 칸 폭 계산에는 포함 */
+tr.off-page { visibility: collapse; }
 .pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; margin: 12px 0 24px; }
 
 /* 헤더 로고 + 버전 선택 */
