@@ -9,6 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@iconify-json/lucide": "^1.2.140",
     "@nuxt/content": "^3.16.1",
     "@nuxt/ui": "^4.11.3",
     "@upstash/redis": "^1.39.0",
