@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 390" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">
+  <!-- 오류 발생 시 처리 흐름 (피그마 'UX 표준 정책' 81:379 기준, 흑백). 레인: 발생 · 판단 · 안내 · 복구 -->
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111"/></marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="90" fill="#f2f2f2"/>
+  <rect x="0" y="90" width="640" height="120" fill="#fafafa"/>
+  <rect x="0" y="210" width="640" height="90" fill="#f2f2f2"/>
+  <rect x="0" y="300" width="640" height="90" fill="#fafafa"/>
+  <g font-weight="bold" text-anchor="start"><text x="10" y="18">발생</text><text x="10" y="108">판단</text><text x="10" y="228">안내</text><text x="10" y="318">복구</text></g>
+
+  <g fill="none" stroke="#111" stroke-width="1.2">
+    <path d="M125,51 H148" marker-end="url(#a)"/>
+    <path d="M250,51 H273" marker-end="url(#a)"/>
+    <path d="M325,72 V123" marker-end="url(#a)"/>
+    <path d="M375,147 H398" marker-end="url(#a)"/>
+    <path d="M500,147 H523" marker-end="url(#a)"/>
+    <path d="M450,170 V233" marker-end="url(#a)"/>
+    <path d="M400,257 H377" marker-end="url(#a)"/>
+    <path d="M325,280 V323" marker-end="url(#a)"/>
+    <path d="M275,347 H252" marker-end="url(#a)"/>
+  </g>
+
+  <g fill="#fff" stroke="#111">
+    <rect x="25" y="30" width="100" height="42"/>
+    <rect x="150" y="30" width="100" height="42"/>
+    <rect x="275" y="30" width="100" height="42"/>
+    <rect x="275" y="125" width="100" height="45"/>
+    <rect x="400" y="125" width="100" height="45"/>
+    <rect x="525" y="125" width="100" height="45"/>
+    <rect x="400" y="235" width="100" height="45"/>
+    <rect x="275" y="235" width="100" height="45"/>
+    <rect x="275" y="325" width="100" height="45"/>
+    <rect x="150" y="325" width="100" height="45"/>
+  </g>
+
+  <g fill="#111">
+    <text x="75" y="47">사용자 요청</text><text x="75" y="63" font-size="10">이동·저장·조회</text>
+    <text x="200" y="55" font-weight="bold">오류 발생</text>
+    <text x="325" y="47">오류 유형 판단</text><text x="325" y="63" font-size="10">입력·권한·페이지·서버</text>
+    <text x="325" y="143" font-size="11">서버·네트워크</text><text x="325" y="159" font-size="10">오류 팝업 (오류 코드)</text>
+    <text x="450" y="143">다시 시도</text><text x="450" y="159" font-size="10">입력값 유지</text>
+    <text x="575" y="143" font-size="11">500 페이지·</text><text x="575" y="159" font-size="10">장애 공지·문의 채널</text>
+    <text x="450" y="261">요청 정상 처리</text>
+    <text x="325" y="253">결과 안내</text><text x="325" y="269" font-size="10">토스트·완료 화면</text>
+    <text x="325" y="351">작업 이어서 진행</text>
+    <text x="200" y="351">원래 화면</text>
+  </g>
+
+  <g fill="#555" font-size="10">
+    <text x="512" y="118">n회 실패</text>
+    <text x="456" y="205" text-anchor="start">재시도 성공</text>
+  </g>
+</svg>

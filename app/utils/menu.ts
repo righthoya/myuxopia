@@ -22,8 +22,7 @@ export const menu = [
       ] },
       { label: '데이터·보안·법', items: [
         { title: '개인정보 처리', to: '/policies/privacy' },
-        // 에러 화면(403/404/500)은 오류·장애 처리에 포함
-        { title: '오류·장애 처리', to: '/policies/error', sections: ['목적', '규칙 표', '오류 화면 (403·404·500)', '흐름도', '예시 문구', '체크리스트'] }
+        { title: '오류·장애 처리', to: '/policies/error' }
       ] }
     ]
   },
@@ -37,7 +36,7 @@ export const menu = [
 ]
 
 // 모든 2depth 페이지를 한 줄로 (홈 목록·같은 분류 목록에 사용)
-export const allPages = menu.flatMap(m => m.groups.flatMap(g => g.items.map(i => ({ ...i, parent: m.title, group: g.label ?? '', sections: i.sections ?? m.sections }))))
+export const allPages = menu.flatMap(m => m.groups.flatMap(g => g.items.map(i => ({ ...i, parent: m.title, group: g.label ?? '', sections: m.sections }))))
 
 export function findPage(path: string) {
   return allPages.find(p => p.to === path)
