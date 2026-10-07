@@ -137,3 +137,6 @@ img { max-width: 100%; height: auto; }
 .flow-svg { display: block; }
 .flow-toggle { display: block; width: 100%; padding: 10px; font-size: 14px; text-align: center; }
 .flow-toggle[aria-expanded="true"] { margin-bottom: 8px; }
+
+/* 공통 푸터 */
+.foot { padding: 24px 16px; border-top: 1px solid #ddd; text-align: center; font-size: 14px; color: #666; }

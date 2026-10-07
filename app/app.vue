@@ -14,5 +14,6 @@ const SUPPORT_URL = '#' // 커피값 후원
       </nav>
     </header>
     <main class="wrap"><NuxtPage /></main>
+    <footer class="foot">© 2026 jeongho</footer>
   </UApp>
 </template>
