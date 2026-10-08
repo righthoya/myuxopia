@@ -77,8 +77,16 @@ onMounted(() => {
   paged.value = (labels()[0] === '#' || isRuleTable) && rows().length >= PAGE_SIZE
 
   // 모바일에서 표를 카드처럼 세로로 풀 때 칸 이름을 보여 주기 위한 라벨
+  // 카드에서 맨 위 한 줄(제목 + 등급), 맨 아래(복사)로 놓을 칸 표시
   const l = labels()
-  for (const tr of rows()) [...tr.cells].forEach((td, i) => td.dataset.label = l[i])
+  const titleCol = l.includes('항목') ? l.indexOf('항목') : l.indexOf('상황')
+  const role = (i: number) => i === titleCol ? 'title' : i === col.grade ? 'grade' : l[i] === '복사' ? 'copy' : ''
+  for (const tr of rows()) {
+    [...tr.cells].forEach((td, i) => {
+      td.dataset.label = l[i]
+      if (role(i)) td.dataset.role = role(i)
+    })
+  }
 })
 
 // 등급 필터를 바꾸면 1페이지부터

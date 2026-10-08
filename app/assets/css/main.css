@@ -140,23 +140,7 @@ img { max-width: 100%; height: auto; }
   .hero-sub { font-size: 20px; }
   .hero-desc { font-size: 15px; }
   .share-box { min-width: 0; flex: 1 1 100%; }
-  .detail { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .detail aside { order: -1; margin-top: 16px; }
-  .facts { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0; }
-  .facts dt { margin-top: 0; }
-  .facts dd { margin-right: 4px; }
-  .toc { position: static; margin-top: 16px; }
   .list th:first-child, .list td:first-child { display: none; }
-
-  .doc table, .doc thead, .doc tbody, .doc tr, .doc td { display: block; width: 100%; }
-  .doc thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .doc tr { margin-bottom: 12px; border: 1px solid #999; }
-  .doc tr[hidden] { display: none; }
-  .doc tr.off-page { display: none; }
-  .doc td { border: 0; border-bottom: 1px solid #ddd; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 8px; }
-  .doc td:last-child { border-bottom: 0; }
-  .doc td::before { content: attr(data-label); font-weight: bold; color: #555; }
-  .doc td > button { justify-self: start; }
 }
 #list { scroll-margin-top: 64px; }
 
@@ -195,3 +179,39 @@ tr.off-page { visibility: collapse; }
 
 /* 그린 흐름도도 회원가입 흐름도와 같은 테두리 */
 .flow-boxed { padding: 16px; border: 1px solid #999; border-radius: var(--radius-card); }
+
+/* 목차 접기(UAccordion)는 1024px 미만에서만 */
+.toc-accordion { display: none; }
+
+/* ===== 1024px 미만: 상세 1단 · 표는 행마다 카드 · 누르는 영역 44px ===== */
+@media (max-width: 1023px) {
+  .detail { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .detail aside { order: -1; margin-top: 16px; }
+  .detail aside .toc { display: none; }
+  .toc-accordion { display: block; margin: 16px 0 0; border-top: 1px solid var(--ui-border-accented); border-bottom: 1px solid var(--ui-border-accented); }
+  .toc-accordion ul { list-style: none; margin: 0; padding: 0 0 8px; }
+  .toc-accordion a { display: flex; align-items: center; min-height: 44px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0; }
+  .facts dt { margin-top: 0; }
+  .facts dd { margin-right: 4px; }
+
+  /* 표 → 카드. 칸 이름은 작은 회색 글씨로 위, 값은 아래 (좌우 나란히 없음) */
+  .doc table, .doc thead, .doc tbody, .doc td { display: block; width: 100%; }
+  .doc thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .doc tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; margin-bottom: 12px; padding: 14px 16px; background: var(--ui-bg); border: 1px solid var(--ui-border-accented); border-radius: var(--radius-card); }
+  .doc tr[hidden], .doc tr.off-page { display: none; }
+  .doc td { grid-column: 1 / -1; padding: 0; border: 0; }
+  .doc td::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: 12px; color: var(--ui-text-muted); }
+  /* 맨 위 한 줄: 항목 이름 + 등급 배지 / 맨 아래: 복사 */
+  .doc td[data-role="title"] { grid-column: 1; order: -2; font-weight: 700; }
+  .doc td[data-role="grade"] { grid-column: 2; order: -1; align-self: start; }
+  .doc td[data-role="copy"] { order: 99; }
+  .doc td[data-role="title"]::before, .doc td[data-role="grade"]::before, .doc td[data-role="copy"]::before { content: none; }
+
+  /* 누르는 영역 최소 44×44 */
+  .wrap button, .top button, .top a[data-slot] { min-height: 44px; min-width: 44px; }
+  .brand > a { display: inline-flex; align-items: center; min-height: 44px; }
+  .grade-filter label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 6px; }
+  .grade-filter input { width: 20px; height: 20px; }
+  .hero-cta .share-box { height: auto; min-height: 44px; padding-block: 0; }
+}

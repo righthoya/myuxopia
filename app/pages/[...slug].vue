@@ -78,6 +78,17 @@ async function toggleLike() {
 
   <div class="detail">
     <article>
+      <!-- 1024px 미만: 오른쪽 목차 대신 본문 위 접힌 목차 -->
+      <UAccordion class="toc-accordion" :items="[{ label: '목차 보기', slot: 'toc' }]">
+        <template #toc-body>
+          <nav aria-label="이 페이지 목차">
+            <ul>
+              <li v-for="l in toc" :key="l.text"><a v-if="l.id" :href="'#' + l.id">{{ l.text }}</a><span v-else>{{ l.text }}</span></li>
+            </ul>
+          </nav>
+        </template>
+      </UAccordion>
+
       <h2 class="label">요약</h2>
       <p class="box summary">
         <template v-if="page?.description">

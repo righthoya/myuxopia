@@ -16,7 +16,7 @@ const grade = computed(() => {
 
 <template>
   <td>
-    <UBadge v-if="grade" :color="GRADE[grade].color" :variant="GRADE[grade].variant" :label="grade" />
+    <UBadge v-if="grade" class="w-fit shrink-0" :color="GRADE[grade].color" :variant="GRADE[grade].variant" :label="grade" />
     <slot v-else />
   </td>
 </template>
