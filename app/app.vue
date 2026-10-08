@@ -12,8 +12,7 @@ const version = ref(VERSIONS[0])
   <UApp :toaster="{ position: 'bottom-center', duration: 2000 }">
     <header class="top">
       <div class="brand">
-        <!-- 로고: public/uxopia-logo.svg 파일을 넣은 뒤 <img src="/uxopia-logo.svg" alt="" width="24" height="24"> 를 strong 앞에 추가 -->
-        <NuxtLink to="/" class="logo"><strong>UXopia</strong></NuxtLink>
+        <NuxtLink to="/"><strong>UXopia</strong></NuxtLink>
         <USelect v-model="version" :items="VERSIONS" size="xs" color="neutral" variant="none" aria-label="버전 선택" class="version-select bg-canvas-strong rounded-md" />
       </div>
       <nav aria-label="보조 메뉴">
