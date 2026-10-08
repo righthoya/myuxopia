@@ -93,7 +93,8 @@ h1 { margin: 8px 0 0; }
 .box { padding: 16px; border: 1px solid #999; background: #f2f2f2;  border-radius: var(--radius-card);}
 .doc h1 { display: none; }
 .rel { list-style: none; padding: 0; margin: 0; }
-.rel li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #ddd; }
+.rel li { display: flex; justify-content: space-between; align-items: center; padding: 0; border-bottom: 1px solid #ddd; }
+.rel a { display: inline-flex; align-items: center; min-height: 44px; }
 .facts dt { font-size: 12px; font-weight: bold; color: #444; margin-top: 16px; }
 .facts dd { margin: 0; font-size: 14px; }
 .toc { position: sticky; top: 72px; font-size: 14px; }
@@ -132,8 +133,7 @@ img { max-width: 100%; height: auto; }
 
 /* 모바일 (760px 이하): 1단 구조, 표는 행마다 세로 카드 */
 @media (max-width: 760px) {
-  .top { flex-wrap: wrap; gap: 4px 12px; padding: 10px 16px; }
-  h2, h3, #list { scroll-margin-top: 96px; }
+  .top { padding: 10px 16px; }
   .top nav { gap: 12px; font-size: 13px; }
   .wrap { padding: 24px 16px 64px; }
   .hero-title { font-size: 44px; }
@@ -214,4 +214,24 @@ tr.off-page { visibility: collapse; }
   .grade-filter label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 6px; }
   .grade-filter input { width: 20px; height: 20px; }
   .hero-cta .share-box { height: auto; min-height: 44px; padding-block: 0; }
+}
+
+/* 헤더: 768px 이상은 '피드백 (카톡 커뮤니티)' 글자 링크, 미만은 아이콘 버튼 한 줄 */
+.fb-icon { display: none; }
+@media (max-width: 767px) {
+  .top { flex-wrap: nowrap; gap: 8px; }
+  .fb-full { display: none; }
+  .fb-icon { display: inline-flex; }
+}
+
+/* ===== 4-3단계: 상호작용 상태 ===== */
+/* 키보드 포커스: 모든 누르는 요소에 남색 테두리 */
+:where(a, button, input, select, summary, [tabindex]):focus-visible { outline: 2px solid var(--ui-primary); outline-offset: 2px; }
+/* 마우스 hover: 버튼에 얇은 테두리 */
+:where(button, a)[data-slot]:not(:disabled):hover { outline: 1px solid var(--ui-border-inverted); outline-offset: 1px; }
+/* 움직임은 0.15초 */
+:where(a, button, input, [data-slot]) { transition: color .15s ease, background-color .15s ease, border-color .15s ease, outline-color .15s ease, box-shadow .15s ease; }
+/* 움직임 줄이기 설정이면 전환·애니메이션 없이 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0s !important; animation-delay: 0s !important; transition-duration: 0s !important; scroll-behavior: auto !important; }
 }
