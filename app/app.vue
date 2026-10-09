@@ -48,9 +48,6 @@ watch(() => route.fullPath, () => { open.value = false })
               </template>
             </UAccordion>
           </template>
-          <template #footer>
-            <UButton to="/releases" block color="neutral" variant="outline" label="전체 보기" />
-          </template>
         </UModal>
       </div>
       <nav aria-label="보조 메뉴">
