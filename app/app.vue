@@ -42,7 +42,7 @@ watch(() => route.fullPath, () => { open.value = false })
             </template>
           </UButton>
           <template #body>
-            <UAccordion :items="items" :default-value="latest?.version">
+            <UAccordion :items="items">
               <template #release-body="{ item }">
                 <ReleaseNote v-if="byVersion(item.value!)" :release="byVersion(item.value!)" />
               </template>
