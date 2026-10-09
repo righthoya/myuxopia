@@ -35,7 +35,7 @@ watch(() => route.fullPath, () => { open.value = false })
     <header class="top">
       <div class="brand">
         <NuxtLink to="/"><strong>UXopia</strong></NuxtLink>
-        <USlideover v-model:open="open" title="릴리스 노트" description="버전별 추가·변경·수정·삭제 내용">
+        <UModal v-model:open="open" title="릴리스 노트" description="버전별 추가·변경·수정·삭제 내용">
           <UButton size="xs" color="neutral" variant="ghost" class="version-btn bg-canvas-strong rounded-md" :label="latest?.version ?? 'v1.0.0'" aria-haspopup="dialog">
             <template #trailing>
               <template v-if="hasNew"><span class="new-dot" aria-hidden="true" /><span class="sr">새 소식</span></template>
@@ -51,7 +51,7 @@ watch(() => route.fullPath, () => { open.value = false })
           <template #footer>
             <UButton to="/releases" block color="neutral" variant="outline" label="전체 보기" />
           </template>
-        </USlideover>
+        </UModal>
       </div>
       <nav aria-label="보조 메뉴">
         <UButton class="fb-full" :to="FEEDBACK_URL" target="_blank" color="neutral" variant="link" trailing-icon="i-lucide-external-link" label="피드백 (카톡 커뮤니티)" aria-label="피드백 (카톡 커뮤니티), 새 창으로 열림" />
