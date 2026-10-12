@@ -109,7 +109,7 @@ th { background: #eee; white-space: nowrap; }
 pre { white-space: pre-wrap; border: 1px dashed #666; background: #eee; padding: 12px; font-size: 13px; }
 
 /* Nuxt UI 본문 컴포넌트가 붙이는 아이콘·코드 색 숨김 */
-.doc :is(h1, h2, h3, h4) .iconify, .doc pre + button, .doc .group > button { display: none !important; }
+.doc :is(h1, h2, h3, h4) .iconify, .doc pre + button { display: none !important; }
 pre * { color: inherit !important; background: none !important; }
 .title-row { display: flex; align-items: center; gap: 12px; }
 
@@ -247,3 +247,7 @@ tr.off-page { visibility: collapse; }
 
 /* 'B2C:'·'B2B:' 줄 앞 작은 태그 (색 + 글자) */
 .seg-tag { display: inline-flex; align-items: center; padding: 0 6px; margin-right: 2px; font-size: 12px; font-weight: 600; line-height: 1.6; color: var(--ui-color-primary-800); background: var(--ui-color-primary-50); border: 1px solid var(--ui-color-primary-200); border-radius: var(--radius-control); vertical-align: 1px; }
+
+/* 문구 톤 탭: 고른 톤 칸만 표시 */
+.tone-tabs { margin: 8px 0; }
+.tone-A [data-tone="B"], .tone-B [data-tone="A"] { display: none; }

@@ -4,6 +4,7 @@ import RowCopy from '~/components/RowCopy.vue'
 // MD 표
 // - '등급' 칸이 있으면: 필수·권장·선택 체크박스로 행 노출 관리
 // - 규칙 표('내용' + '{변수}' 칸): 행마다 [복사] 버튼. 복사할 때 {변수}는 그대로
+// - 'A. …'·'B. …' 칸이 있으면: 문구 톤 탭(A 합니다체 / B 해요체)으로 한쪽만 표시
 // - 목록 표('#' 칸)·규칙 표가 10행 이상이면: 10개씩 페이지네이션 (걸러진 결과가 10개 이하면 페이지 번호 숨김)
 const PAGE_SIZE = 10
 const grades = ['필수', '권장', '선택'] as const
@@ -14,11 +15,15 @@ const visible = ref(0)
 const paged = ref(false)
 const page = ref(1)
 const total = ref(0)
+// 문구 톤 탭: 'A. …'·'B. …' 칸이 둘 다 있는 표 (A 합니다체 / B 해요체)
+const hasTone = ref(false)
+const tone = ref<'A' | 'B'>('A')
+const toneItems = [{ label: 'A. 합니다체', value: 'A' }, { label: 'B. 해요체', value: 'B' }]
 
 const cellText = (tr: HTMLTableRowElement, i: number) => tr.cells[i]?.textContent?.trim() ?? ''
-// 복사할 때는 칸 안 <br>을 줄바꿈으로 살림
+// 복사할 때는 칸 안 <br>을 줄바꿈으로 살림 (Vue 표시용 주석은 제외)
 const copyText = (td?: HTMLTableCellElement) => td
-  ? [...td.childNodes].map(n => n.nodeName === 'BR' ? '\n' : n.textContent).join('').replace(/[ \t]+\n/g, '\n').trim()
+  ? [...td.childNodes].map(n => n.nodeName === 'BR' ? '\n' : n.nodeType === Node.COMMENT_NODE ? '' : n.textContent).join('').replace(/[ \t]+\n/g, '\n').trim()
   : ''
 const rows = () => [...(table.value?.tBodies[0]?.rows ?? [])]
 const appContext = getCurrentInstance()?.appContext
@@ -33,15 +38,23 @@ onMounted(() => {
   col.text = idx('내용')
   col.vars = idx('{변수}')
   // 팝업 목록 표('#'·'제목'·'본문' 칸): 행마다 제목·본문·버튼 문구를 한 번에 복사
-  const [code, title, body, btns, sit] = ['#', '제목', '본문', '버튼', '상황'].map(idx)
-  if (code === 0 && title >= 0 && body >= 0) {
+  const toneOf = (h: string) => /^A\./.test(h) ? 'A' : /^B\./.test(h) ? 'B' : ''
+  hasTone.value = labels().some(h => toneOf(h) === 'A') && labels().some(h => toneOf(h) === 'B')
+  // 톤 칸 표시 (머리글·본문 칸 모두)
+  if (hasTone.value) {
+    const tones = labels().map(toneOf)
+    for (const tr of [head, ...rows()]) [...tr.cells].forEach((c, i) => { if (tones[i]) c.dataset.tone = tones[i] })
+  }
+  const pick = (name: string, t: string) => idx(`${t}. ${name}`) >= 0 ? idx(`${t}. ${name}`) : idx(name)
+  const [code, btns, sit] = ['#', '버튼', '상황'].map(idx)
+  if (code === 0 && pick('제목', 'A') >= 0 && pick('본문', 'A') >= 0) {
     const th = document.createElement('th')
     th.textContent = '복사'
     head.appendChild(th)
     for (const tr of rows()) {
-      const v = (i: number) => (i >= 0 && cellText(tr, i) !== '—' ? cellText(tr, i) : '')
-      const text = [v(title), v(body), v(btns) && `[${v(btns)}]`].filter(Boolean).join('\n')
-      const vnode = h(RowCopy, { text, label: `${v(code)} ${v(sit)}` })
+      const v = (i: number) => (i >= 0 && cellText(tr, i) !== '—' ? copyText(tr.cells[i]) : '')
+      const textFor = (t: string) => [v(pick('제목', t)), v(pick('본문', t)), v(btns) && `[${v(btns)}]`].filter(Boolean).join('\n')
+      const vnode = h(RowCopy, { getText: () => textFor(tone.value), label: `${v(code)} ${v(sit)}` })
       vnode.appContext = appContext ?? null
       render(vnode, tr.insertCell())
     }
@@ -121,7 +134,8 @@ watchEffect(() => {
     <label v-for="g in grades" :key="g"><input v-model="show[g]" type="checkbox"> {{ g }}</label>
     <span aria-live="polite" class="muted">{{ visible }}개 항목 표시</span>
   </fieldset>
-  <table ref="table"><slot /></table>
+  <UTabs v-if="hasTone" v-model="tone" :items="toneItems" :content="false" size="sm" class="tone-tabs" aria-label="문구 톤" />
+  <table ref="table" :class="hasTone ? `tone-${tone}` : undefined"><slot /></table>
   <div v-if="paged && total > PAGE_SIZE" class="pager">
     <UPagination v-model:page="page" :total="total" :items-per-page="PAGE_SIZE" color="neutral" variant="outline" />
     <span aria-live="polite" class="muted">{{ (page - 1) * PAGE_SIZE + 1 }}-{{ Math.min(page * PAGE_SIZE, total) }} / {{ total }}</span>

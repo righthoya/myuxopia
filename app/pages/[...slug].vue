@@ -40,7 +40,11 @@ onMounted(() => {
     const tag = document.createElement('span')
     tag.className = 'seg-tag'
     tag.textContent = m[2]!
-    node.replaceWith(tag, ' ', node.nodeValue!.slice(m[0].length))
+    // 쌍점은 화면에서만 숨기고 남겨 둠 → 복사하면 'B2C: …' 원문 그대로
+    const colon = document.createElement('span')
+    colon.className = 'sr'
+    colon.textContent = ':'
+    node.replaceWith(tag, colon, ' ', node.nodeValue!.slice(m[0].length))
   }
   const walker = document.createTreeWalker(doc, NodeFilter.SHOW_TEXT, {
     acceptNode: n => /\{[^{}]+\}/.test(n.nodeValue ?? '') && !n.parentElement?.closest('th, pre, .var, svg, style') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
