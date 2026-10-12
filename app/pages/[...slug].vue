@@ -29,6 +29,19 @@ const send = (type: string) => $fetch('/api/stats', { method: 'POST', body: { pa
 onMounted(() => {
   const doc = document.querySelector('.doc')
   if (!doc) return
+  // 'B2C:'·'B2B:'로 시작하는 줄 → 앞머리를 작은 태그로 (복사 내용은 원문 그대로)
+  const segWalker = document.createTreeWalker(doc, NodeFilter.SHOW_TEXT, {
+    acceptNode: n => /^\s*(B2C|B2B):/.test(n.nodeValue ?? '') && !n.parentElement?.closest('pre, svg, style') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
+  })
+  const segNodes: Text[] = []
+  while (segWalker.nextNode()) segNodes.push(segWalker.currentNode as Text)
+  for (const node of segNodes) {
+    const m = node.nodeValue!.match(/^(\s*)(B2C|B2B):\s*/)!
+    const tag = document.createElement('span')
+    tag.className = 'seg-tag'
+    tag.textContent = m[2]!
+    node.replaceWith(tag, ' ', node.nodeValue!.slice(m[0].length))
+  }
   const walker = document.createTreeWalker(doc, NodeFilter.SHOW_TEXT, {
     acceptNode: n => /\{[^{}]+\}/.test(n.nodeValue ?? '') && !n.parentElement?.closest('th, pre, .var, svg, style') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
   })
@@ -89,6 +102,7 @@ async function toggleLike() {
         </template>
       </UAccordion>
 
+      <template v-if="page?.description || !page">
       <h2 class="label">요약</h2>
       <p class="box summary">
         <template v-if="page?.description">
@@ -96,6 +110,7 @@ async function toggleLike() {
         </template>
         <template v-else>준비 중입니다.</template>
       </p>
+      </template>
 
       <h2 class="label">정책 본문</h2>
       <div v-if="page" class="doc"><ContentRenderer :value="page" /></div>

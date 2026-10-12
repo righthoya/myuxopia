@@ -16,6 +16,10 @@ const page = ref(1)
 const total = ref(0)
 
 const cellText = (tr: HTMLTableRowElement, i: number) => tr.cells[i]?.textContent?.trim() ?? ''
+// 복사할 때는 칸 안 <br>을 줄바꿈으로 살림
+const copyText = (td?: HTMLTableCellElement) => td
+  ? [...td.childNodes].map(n => n.nodeName === 'BR' ? '\n' : n.textContent).join('').replace(/[ \t]+\n/g, '\n').trim()
+  : ''
 const rows = () => [...(table.value?.tBodies[0]?.rows ?? [])]
 const appContext = getCurrentInstance()?.appContext
 
@@ -43,14 +47,16 @@ onMounted(() => {
     }
   }
 
-  if (col.grade >= 0 && col.text >= 0 && col.vars >= 0) {
+  // 규칙 표: '항목'·'내용' 칸 + ('대상' 또는 '{변수}' 칸). 팝업 공통 규칙(항목·내용·등급)은 복사 없음
+  const ruleTable = col.item >= 0 && col.text >= 0 && (idx('대상') >= 0 || col.vars >= 0)
+  if (ruleTable) {
     // 행별 복사 칸 추가 (MD 표는 정적이라 DOM에 직접 붙임)
     const th = document.createElement('th')
     th.textContent = '복사'
     head.appendChild(th)
     for (const tr of rows()) {
       // MD 표는 정적이라 칸을 직접 붙이고, 그 안에 UButton(RowCopy)을 렌더
-      const vnode = h(RowCopy, { text: cellText(tr, col.text), label: cellText(tr, col.item) })
+      const vnode = h(RowCopy, { text: copyText(tr.cells[col.text]), label: cellText(tr, col.item) })
       vnode.appContext = appContext ?? null
       render(vnode, tr.insertCell())
     }
@@ -73,8 +79,7 @@ onMounted(() => {
 
   // 10행 이상이면 페이지네이션. 다른 페이지 행은 접어서(visibility: collapse) 숨겨
   // 칸 폭 계산에는 계속 포함되게 함 → 페이지를 넘겨도 칸 폭이 같음
-  const isRuleTable = col.grade >= 0 && col.text >= 0 && col.vars >= 0
-  paged.value = (labels()[0] === '#' || isRuleTable) && rows().length >= PAGE_SIZE
+  paged.value = (labels()[0] === '#' || ruleTable) && rows().length >= PAGE_SIZE
 
   // 모바일에서 표를 카드처럼 세로로 풀 때 칸 이름을 보여 주기 위한 라벨
   // 카드에서 맨 위 한 줄(제목 + 등급), 맨 아래(복사)로 놓을 칸 표시
