@@ -1,13 +1,5 @@
-// 정책 메뉴 (docs/ia.md 기준, 1depth 4개). sections = '준비 중' 페이지에 보여 줄 본문 틀
+// 정책 메뉴 (docs/ia.md 기준, 1depth 3개). sections = '준비 중' 페이지에 보여 줄 본문 틀
 export const menu = [
-  {
-    title: 'UX 정책',
-    sections: ['목적', '내용'],
-    groups: [{ items: [
-      { title: '목적과 방향', to: '/ux-policy/purpose' },
-      { title: '설계 원칙', to: '/ux-policy/principles' }
-    ] }]
-  },
   {
     title: '기능 정책',
     sections: ['목적', '규칙 표', '흐름'],
